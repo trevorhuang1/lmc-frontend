@@ -1,9 +1,9 @@
-title: Nighthawk-Pages
-description: "August 2023 to June 2024"
-owner_name: Tirth Thakkar
-github_username: Tirth-Thakkar
-github_repo: "Nighthawk-Pages"
-baseurl: "/Nighthawk-Pages"
+title: Let 'em Cook
+description: The frontend for Let 'em Cook
+owner_name: Trevor Huang
+github_username: trevorhuang1
+github_repo: "lmc-frontend"
+baseurl: "/lmc-frontend"
 remote_theme: jekyll/minima
 minima:
   social_links:
