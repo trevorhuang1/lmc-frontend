@@ -1,15 +1,14 @@
-.body {
-    color: #e6d060!important;
-}
+$main-font: 'Courier New', monospace;
+$font-color: black;
 header, footer {
-    font-family: 'Lobster', cursive;
-    background-color: #61c0a8;
+    font-family: $main-font;
+    background-color: #ceccac!important;
 }
 
 body {
-    font-family: 'Lobster', cursive; /* Replace 'YourHolidayFont' with the actual font name */
-    background-color: #e6d060!important; /* Set a background color for better visibility */
-    color: white;
+    font-family: 'Trattatello', fantasy	; /* Replace 'YourHolidayFont' with the actual font name */
+    background-color: #FFF2D7!important; /* Set a background color for better visibility */
+    color: $font-color
     //filter: blur(8px);
   } 
   .snow:after {
@@ -36,30 +35,30 @@ body {
     }
   }
 th {
-    color: white;
-    background-color: rgb(123, 35, 53)!important;
-    border-color: rgb(123, 35, 53)!important;
+    color: $font-color;
+    background-color: #c0b399!important;
+    border-color: #928a79!important;
 }
 ul {
   color: white;
 }
 tbody,td,tr,table {
-    font-family: 'Lobster', cursive;
-    color: white;
-    background-color: rgb(182, 49, 80);
-    border-color: rgb(123, 35, 53)!important;
+    font-family: $main-font;
+    color: $font-color;
+    background-color: #c0b399!important;
+    border-color: #928a79!important;
 }
 a {
-    font-family: 'Lobster', cursive!important;
-    color: white!important;
+    font-family: $main-font!important;
+    color: $font-color!important;
 }
 h2,p {
-    font-family: 'Lobster', cursive;
-    color: white;
+    font-family: $main-font;
+    color: $font-color;
 }
   h1 {
     font-size: 36px;
-    color: #cc0000; /* Use a deep red color for the text */
+    color: $font-color; /* Use a deep red color for the text */
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 2px;
