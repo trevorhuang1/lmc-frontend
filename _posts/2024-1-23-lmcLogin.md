@@ -37,7 +37,7 @@ The script defines a function when the page loads. This function is triggered wh
     function login_user(){
         // Set Authenticate endpoint
         const url = uri + '/api/users/authenticate';
-
+        console.log(url);
         // Set body of request to include login data from DOM
         const body = {
             uid: document.getElementById("uid").value,
