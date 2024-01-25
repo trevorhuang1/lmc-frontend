@@ -116,8 +116,8 @@ The form triggers the login_user function defined in the JavaScript below when t
         </p>
     </form>
 </div>
-
-<!-- <form action="javascript:login_user()">
+<!-- 
+<form action="javascript:login_user()">
     <p><label>
         User ID:
         <input type="text" name="uid" id="uid" required>
@@ -130,14 +130,14 @@ The form triggers the login_user function defined in the JavaScript below when t
         <button>Login</button>
     </p>
 </form> -->
-<form action = "javascript:createUser()">
-    <!-- Add input fields for user details -->
+<!-- <form action = "javascript:createUser()">
+    Add input fields for user details
     <label ><input type="text" id="new_name" required></label>
     <label><input type="text" id="new_uid" required></label>
     <label>    <input type="password" id="new_password" required></label>
     <label><input type="text" id="new_dob" required></label>
     <button type="button">Create User</button>
-</form>
+</form> -->
 <!-- 
 Below JavaScript code is designed to handle user authentication in a web application. It's written to work with a backend server that uses JWT (JSON Web Tokens) for authentication.
 
