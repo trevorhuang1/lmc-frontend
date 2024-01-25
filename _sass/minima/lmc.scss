@@ -6,11 +6,11 @@ header, footer {
 }
 
 body {
-    font-family: 'Trattatello', fantasy	; /* Replace 'YourHolidayFont' with the actual font name */
-    background-color: #FFF2D7!important; /* Set a background color for better visibility */
-    color: $font-color
-    //filter: blur(8px);
-  } 
+  font-family: 'Trattatello', fantasy	; 
+  background-color: #a32e84!important;
+  background-size: 400% 400%;
+}
+
   .snow:after {
     margin-left: -250px;
     opacity: 0.5;
