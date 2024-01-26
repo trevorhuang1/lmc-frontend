@@ -29,12 +29,12 @@ The form triggers the login_user function defined in the JavaScript below when t
         <p>
         <img src="/lmc-frontend/images/cookie.png" width="92px" height="100px">
         </p>
-        <!-- <p>
+        <p>
         <label>
             Name:
             <input class="userInput" type="text" name="name" id="name" required>
         </label>
-        </p> -->
+        </p>
         <p><label>
             User ID:
             <input class="userInput" type="text" name="uid" id="uid" required>
@@ -43,15 +43,12 @@ The form triggers the login_user function defined in the JavaScript below when t
             Password:
             <input class="userInput" type="password" name="password" id="password" required>
         </label></p>
-        <!-- <p><label>
+        <p><label>
             Date of Birth:
             <input class="userInput" type="text" id="dob" required>
-        </label></p> -->
+        </label></p>
         <p>
             <button onclick="login_user()">Login</button>
-        </p>
-        <p>
-            <a href="{{site.baseurl}}/lmc-createUser">Create New User</a>
         </p>
     </form>
 </div>
@@ -72,10 +69,10 @@ The script defines a function when the page loads. This function is triggered wh
 
         // Set the body of the request to include login data from the DOM
         const body = {
-            // name: document.getElementById("name").value,
+            name: document.getElementById("name").value,
             uid: document.getElementById("uid").value,
             password: document.getElementById("password").value,
-            // dob: document.getElementById("dob").value
+            dob: document.getElementById("dob").value
         };
 
         // Change options according to Authentication requirements
