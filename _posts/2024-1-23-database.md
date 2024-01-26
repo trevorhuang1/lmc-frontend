@@ -33,13 +33,18 @@ The script is laid out in a sequence (no function) and will execute when page is
   import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
 
   // Set Users endpoint (list of users)
-  const url = uri + '/api/users/authenticate';
+  const url = uri + '/api/users/';
 
   // prepare HTML result container for new output
   const resultContainer = document.getElementById("result");
 
   // fetch the API
-  fetch(url, options)
+  const authOptions = {
+            ...options, // This will copy all properties from options
+            method: 'GET', // Override the method property
+            cache: 'no-cache', // Set the cache property
+        };
+  fetch(url, authOptions)
     // response is a RESTful "promise" on any successful fetch
     .then(response => {
       // check for response errors and display
