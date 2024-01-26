@@ -1,13 +1,17 @@
-$main-font: 'Courier New', monospace;
+$main-font: 'Lobster', cursive;
 $font-color: black;
-header, footer {
+header, footer{
+    display: none!important;
     font-family: $main-font;
     background-color: #ceccac!important;
 }
 
+label, p {
+  font-family: $main-font;
+}
 body {
   font-family: 'Trattatello', fantasy	; 
-  background-color: #a32e84!important;
+  background-color: #2d0d25!important;
   background-size: 400% 400%;
 }
 
@@ -65,20 +69,21 @@ h2,p {
     margin-bottom: 20px;
     font-weight: bold;
     text-shadow: 2px 2px 4px #ffffff; /* Add a subtle white shadow */
+    font-family: $main-font;
   }
   
-  /* Additional styles for a Christmas-themed feel */
-  h1::before {
-    content: '\2605'; /* Unicode character for a star */
-    font-size: 42px;
-    margin-right: 10px;
-  }
+  // /* Additional styles for a Christmas-themed feel */
+  // h1::before {
+  //   content: '\2605'; /* Unicode character for a star */
+  //   font-size: 42px;
+  //   margin-right: 10px;
+  // }
   
-  h1::after {
-    content: '\2605';
-    font-size: 42px;
-    margin-left: 10px;
-  }
+  // h1::after {
+  //   content: '\2605';
+  //   font-size: 42px;
+  //   margin-left: 10px;
+  // }
   form {
     color: white;
   }
