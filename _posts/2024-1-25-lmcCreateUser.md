@@ -47,6 +47,10 @@ The form triggers the login_user function defined in the JavaScript below when t
             Date of Birth:
             <input class="userInput" type="text" id="dob" required>
         </label></p>
+		<p><label>
+			Favorite Food:
+			<input class="userInput" type="text" id="food" required>
+		</label></p>
         <p>
             <button onclick="login_user()">Submit</button>
         </p>
@@ -107,7 +111,7 @@ The script defines a function when the page loads. This function is triggered wh
             }
             // Success!!!
             // Redirect to the database page
-            window.location.href = "{{site.baseurl}}/data/database";
+            window.location.href = "/lmc-frontend/_posts/2024-1-23-lmcLogin.md";
         })
         // catch fetch errors (ie ACCESS to server blocked)
         .catch(err => {
