@@ -51,7 +51,7 @@ The form triggers the login_user function defined in the JavaScript below when t
             <button onclick="login_user()">Login</button>
         </p>
         <p>
-            <a>Create User</a>
+            <a href="{{site.baseurl}}/lmc-CreateUser">Create New User</a>
         </p>
     </form>
 </div>
