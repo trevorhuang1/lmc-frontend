@@ -62,7 +62,20 @@ The script defines a function when the page loads. This function is triggered wh
 <script type="module">
     // uri variable and options object are obtained from config.js
     import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
-
+    const url = uri + '/api/users/authenticate';
+    const body = {
+            // name: document.getElementById("name").value,
+            uid: "toby",
+            password: "123toby"
+            // dob: document.getElementById("dob").value
+        };
+    const authOptions = {
+            ...options, // This will copy all properties from options
+            method: 'POST', // Override the method property
+            cache: 'no-cache', // Set the cache property
+            body: JSON.stringify(body)
+        };
+    fetch(url, authOptions)
     function login_user(){
         // Set Authenticate endpoint
         const url = uri + '/api/users/';
