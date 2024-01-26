@@ -7,3 +7,4 @@ __pycache__/
 *-checkpoint.ipynb
 .ipynb checkpoints
 *.pyc
+convert_notebooks.cpython-310.pyc
