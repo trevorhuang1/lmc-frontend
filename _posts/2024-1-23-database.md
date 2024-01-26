@@ -22,6 +22,7 @@ permalink: /data/database
     <!-- javascript generated data -->
   </tbody>
 </table>
+<a href = "{{site.baseurl}}/lmc-editUser">Edit User</a>
 
 <div>
   <button onclick="deleteUser()">Delete User</button>
