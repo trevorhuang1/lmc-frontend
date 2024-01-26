@@ -18,7 +18,7 @@
     padding: 5px;
 }
 form{
-    animation: fadeInAnimation ease 10s;
+    animation: fadeInAnimation ease 6s;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
     height: 520px;
