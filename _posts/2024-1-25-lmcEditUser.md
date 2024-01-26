@@ -37,6 +37,10 @@ The form triggers the login_user function defined in the JavaScript below when t
             Date of Birth:
             <input class="userInput" type="text" id="dob" required>
         </label></p>
+         <p><label>
+            Fav Food:
+            <input class="userInput" type="text" id="favfood" required>
+        </label></p>
         <p>
             <button onclick="login_user()">Submit</button>
         </p>
@@ -73,7 +77,8 @@ The script defines a function when the page loads. This function is triggered wh
         // Set the body of the request to include login data from the DOM
         const body = {
             uid: document.getElementById("uid").value,
-            dob: document.getElementById("dob").value
+            dob: document.getElementById("dob").value,
+            favfood: document.getElementById("favfood").value
         };
 
         // Change options according to Authentication requirements
@@ -95,6 +100,7 @@ The script defines a function when the page loads. This function is triggered wh
             }
             // Success!!!
             // Redirect to the database page
+            window.location.href = "{{site.baseurl}}/data/database";
         })
         // catch fetch errors (ie ACCESS to server blocked)
         .catch(err => {
