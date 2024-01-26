@@ -89,7 +89,8 @@ The script defines a function when the page loads. This function is triggered wh
             name: document.getElementById("name").value,
             uid: document.getElementById("uid").value,
             password: document.getElementById("password").value,
-            dob: document.getElementById("dob").value
+            dob: document.getElementById("dob").value,
+			fav_food: document.getElementById("food").value
         };
 
         // Change options according to Authentication requirements
