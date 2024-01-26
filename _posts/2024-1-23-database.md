@@ -11,11 +11,7 @@ permalink: /data/database
 <!-- HTML table layout for page.  The table is filled by JavaScript below. 
 -->
 
-<form id="delete">
-  <label for="userId">Delete User By ID</label><br>
-  <input type="text" id="userId" name="userId" required>
-  <button type="submit" onclick="deleteUserById()">Submit</button>
-</form>
+
 
 <table>
   <thead>
