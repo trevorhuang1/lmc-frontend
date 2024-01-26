@@ -5,6 +5,7 @@ title: LMC Login page
 description: cooking
 courses: {'compsci': {'week': 4}}
 type: hacks
+permalink: /lmc-login
 ---
 <style>
     .container{
