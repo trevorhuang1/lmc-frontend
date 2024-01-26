@@ -59,7 +59,7 @@ The script defines a function when the page loads. This function is triggered wh
     // uri variable and options object are obtained from config.js
     import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
     localStorage.setItem('userID',document.getElementById("uid").value);
-    const url = uri + '/api/users/authenticate';
+    const url = uri + '/api/users';
     const body = {
             // name: document.getElementById("name").value,
             uid: "toby",
@@ -67,8 +67,8 @@ The script defines a function when the page loads. This function is triggered wh
             // dob: document.getElementById("dob").value
         };
     const authOptions = {
-            ...options, // This will copy all properties from options
-            method: 'POST', // Override the method property
+            ...options,// This will copy all properties from options
+            method: 'DELETE', // Override the method property
             cache: 'no-cache', // Set the cache property
             body: JSON.stringify(body)
         };
