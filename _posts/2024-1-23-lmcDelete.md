@@ -5,7 +5,7 @@ title: LMC Login page
 description: cooking
 courses: {'compsci': {'week': 4}}
 type: hacks
-permalink: /lmc-createUser
+permalink: /lmc-deleteUser
 ---
 <style>
 
@@ -29,26 +29,22 @@ The form triggers the login_user function defined in the JavaScript below when t
         <p>
         <img src="/lmc-frontend/images/cookie.png" width="92px" height="100px">
         </p>
-        <p>
+        <!-- <p>
         <label>
             Name:
             <input class="userInput" type="text" name="name" id="name" required>
         </label>
-        </p>
+        </p> -->
         <p><label>
             User ID:
             <input class="userInput" type="text" name="uid" id="uid" required>
         </label></p>
-        <p ><label>
-            Password:
-            <input class="userInput" type="password" name="password" id="password" required>
-        </label></p>
-        <p><label>
+        <!-- <p><label>
             Date of Birth:
             <input class="userInput" type="text" id="dob" required>
-        </label></p>
+        </label></p> -->
         <p>
-            <button onclick="login_user()">Submit</button>
+            <button onclick="login_user()">Login</button>
         </p>
     </form>
 </div>
@@ -62,6 +58,7 @@ The script defines a function when the page loads. This function is triggered wh
 <script type="module">
     // uri variable and options object are obtained from config.js
     import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
+    localStorage.setItem('userID',document.getElementById("uid").value);
     const url = uri + '/api/users/authenticate';
     const body = {
             // name: document.getElementById("name").value,
@@ -72,29 +69,32 @@ The script defines a function when the page loads. This function is triggered wh
     const authOptions = {
             ...options, // This will copy all properties from options
             method: 'POST', // Override the method property
-            
             cache: 'no-cache', // Set the cache property
             body: JSON.stringify(body)
         };
     fetch(url, authOptions)
+
     function login_user(){
         // Set Authenticate endpoint
         const url = uri + '/api/users/';
 
         // Set the body of the request to include login data from the DOM
         const body = {
-            name: document.getElementById("name").value,
+            // name: document.getElementById("name").value,
             uid: document.getElementById("uid").value,
-            password: document.getElementById("password").value,
-            dob: document.getElementById("dob").value
+            // dob: document.getElementById("dob").value
         };
 
         // Change options according to Authentication requirements
         const authOptions = {
             ...options, // This will copy all properties from options
-            method: 'POST', // Override the method property
-            cache: 'no-cache', // Set the cache property
-            body: JSON.stringify(body)
+            cache: 'no-cache',
+            method: 'DELETE',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+                // 'Access-Control-Allow-Origin': '*'
+            },
         };
 
         // Fetch JWT
@@ -108,7 +108,7 @@ The script defines a function when the page loads. This function is triggered wh
             }
             // Success!!!
             // Redirect to the database page
-            window.location.href = "{{site.baseurl}}/data/database";
+            window.location.href = "{{site.baseurl}}/lmc-login";
         })
         // catch fetch errors (ie ACCESS to server blocked)
         .catch(err => {
