@@ -30,6 +30,10 @@ The form triggers the login_user function defined in the JavaScript below when t
         <img src="/lmc-frontend/images/cookie.png" width="92px" height="100px">
         </p>
         <p><label>
+            Name:
+            <input class="userInput" type="text" id="name" required>
+        </label></p>
+        <p><label>
             User ID:
             <input class="userInput" type="text" name="uid" id="uid" required>
         </label></p>
@@ -60,7 +64,7 @@ The script defines a function when the page loads. This function is triggered wh
     const body = {
             // name: document.getElementById("name").value,
             uid: "toby",
-            password: "123toby"
+            password: "123toby",
             // dob: document.getElementById("dob").value
         };
     const authOptions = {
@@ -78,7 +82,8 @@ The script defines a function when the page loads. This function is triggered wh
         const body = {
             uid: document.getElementById("uid").value,
             dob: document.getElementById("dob").value,
-            favfood: document.getElementById("favfood").value
+            name: document.getElementById("name").value,
+            // favfood: document.getElementById("name").value
         };
 
         // Change options according to Authentication requirements
