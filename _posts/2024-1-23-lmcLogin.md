@@ -88,20 +88,30 @@ The script defines a function when the page loads. This function is triggered wh
         .then(response => {
             // handle error response from Web API
             if (!response.ok) {
-                const errorMsg = 'Login error: ' + response.status;
-                console.log(errorMsg);
+                if (response.status === 401) {
+                    // Unauthorized - Redirect to 401 error page
+                    window.location.href = "/teacher_portfolio/errors/401.html";
+                } else if (response.status === 403) {
+                    // Forbidden - Redirect to 403 error page
+                    window.location.href = "/teacher_portfolio/errors/403.html";
+                } else if (response.status === 404) {
+                    // Not Found - Redirect to 404 error page
+                    window.location.href = "/lmc-frontend/404.html";
+                } else {
+                    // Handle other error responses
+                    const errorMsg = 'Login error: ' + response.status;
+                    console.log(errorMsg);
+                }
                 return;
             }
             // Success!!!
             // Redirect to the database page
-            window.location.href = "{{site.baseurl}}/data/database";
+            window.location.href = "/teacher_portfolio/data/database";
         })
         // catch fetch errors (ie ACCESS to server blocked)
         .catch(err => {
             console.error(err);
         });
     }
-
     // Attach login_user to the window object, allowing access to form action
     window.login_user = login_user;
-</script>
