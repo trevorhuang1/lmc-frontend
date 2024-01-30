@@ -25,10 +25,12 @@ permalink: /data/database
     <!-- javascript generated data -->
   </tbody>
 </table>
-<a href = "{{site.baseurl}}/lmc-editUser">Edit User</a>
+<div>
+  <button onclick='window.location.href = "{{site.baseurl}}/lmc-editUser"'>Edit User</button>
+</div>
 
 <div>
-  <button onclick="deleteUser()">Delete User</button>
+  <button onclick='window.location.href = "{{site.baseurl}}/lmc-deleteUser"'>Delete User</button>
 </div>
 <!-- 
 Below JavaScript code fetches user data from an API and displays it in a table. It uses the Fetch API to make a GET request to the '/api/users/' endpoint.   Refer to config.js to see additional options. 
@@ -101,35 +103,35 @@ The script is laid out in a sequence (no function) and will execute when page is
   });
 
 //Delete
-function deleteUser()
-{
-  const uid = JSON.parse(localStorage.getItem('newUserID'));
-  const body = {
-      // name: document.getElementById("name").value,
-      uid
-      // dob: document.getElementById("dob").value
-  };
-  const authOptions = {
-      ...options, // This will copy all properties from options
-      method: 'DELETE', // Override the method property
-      cache: 'no-cache', // Set the cache property
-      body: JSON.stringify(body)
-  };
-  fetch(url, authOptions)
-          .then(response => {
-              // handle error response from Web API
-              if (!response.ok) {
-                  const errorMsg = 'Login error: ' + response.status;
-                  console.log(errorMsg);
-                  return;
-              }
-              // Success!!!
-              // Redirect to the database page
-              ;
-          })
-          // catch fetch errors (ie ACCESS to server blocked)
-          .catch(err => {
-              console.error(err);
-          });
-}
+// function deleteUser()
+// {
+//   const uid = JSON.parse(localStorage.getItem('newUserID'));
+//   const body = {
+//       // name: document.getElementById("name").value,
+//       uid
+//       // dob: document.getElementById("dob").value
+//   };
+//   const authOptions = {
+//       ...options, // This will copy all properties from options
+//       method: 'DELETE', // Override the method property
+//       cache: 'no-cache', // Set the cache property
+//       body: JSON.stringify(body)
+//   };
+//   fetch(url, authOptions)
+//           .then(response => {
+//               // handle error response from Web API
+//               if (!response.ok) {
+//                   const errorMsg = 'Login error: ' + response.status;
+//                   console.log(errorMsg);
+//                   return;
+//               }
+//               // Success!!!
+//               // Redirect to the database page
+//               ;
+//           })
+//           // catch fetch errors (ie ACCESS to server blocked)
+//           .catch(err => {
+//               console.error(err);
+//           });
+// }
 </script>
