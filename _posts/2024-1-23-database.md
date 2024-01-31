@@ -57,7 +57,7 @@ Below JavaScript code fetches user data from an API and displays it in a table. 
             window.location.href = "/lmc-frontend/lmc-login";
         } else if (response.status === 403) {
             // Forbidden - Redirect to 403 error page
-            window.location.href = "/lmc-frontend/lmc-login";
+            alert(response.status + " error. Redirecting you to the login")
             const errorMsg = 'Database response error: ' + response.status;
             console.log(errorMsg);
             const tr = document.createElement("tr");
@@ -65,6 +65,7 @@ Below JavaScript code fetches user data from an API and displays it in a table. 
             td.innerHTML = errorMsg;
             tr.appendChild(td);
             resultContainer.appendChild(tr);
+            window.location.href = "/lmc-frontend/lmc-login";
             return;
         }
     }
