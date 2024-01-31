@@ -59,7 +59,7 @@ The script defines a function when the page loads. This function is triggered wh
     // uri variable and options object are obtained from config.js
     import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
     localStorage.setItem('userID',document.getElementById("uid").value);
-    const url = uri + '/api/users';
+    const url = uri + '/api/users/authenticate';
     const body = {
             // name: document.getElementById("name").value,
             uid: "toby",
@@ -68,7 +68,7 @@ The script defines a function when the page loads. This function is triggered wh
         };
     const authOptions = {
             ...options,// This will copy all properties from options
-            method: 'DELETE', // Override the method property
+            method: 'POST', // Override the method property
             cache: 'no-cache', // Set the cache property
             body: JSON.stringify(body)
         };
@@ -90,11 +90,7 @@ The script defines a function when the page loads. This function is triggered wh
             ...options, // This will copy all properties from options
             cache: 'no-cache',
             method: 'DELETE',
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json',
-                // 'Access-Control-Allow-Origin': '*'
-            },
+            body: JSON.stringify(body)
         };
 
         // Fetch JWT
