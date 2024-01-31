@@ -48,7 +48,7 @@ The form triggers the login_user function defined in the JavaScript below when t
             <input class="userInput" type="text" id="dob" required>
         </label></p> -->
         <p>
-            <button onclick="login_user()">Login</button>
+            <button>Login</button>
         </p>
         <a href='{{site.baseurl}}/lmc-createUser'>Register</a>
     </form>
@@ -61,7 +61,6 @@ Below JavaScript code is designed to handle user authentication in a web applica
 The script defines a function when the page loads. This function is triggered when the Login button in the HTML form above is pressed. 
  -->
 <script type="module">
-    localStorage.setItem('uid',newUserID);
 
     // uri variable and options object are obtained from config.js
     import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';

@@ -4,7 +4,7 @@ if (location.hostname === "localhost") {
 } else if (location.hostname === "127.0.0.1") {
         uri = "http://127.0.0.1:8086";
 } else {
-        uri = "http://127.0.0.1:8086/";
+        uri = "http://127.0.0.1:8086";
 }
 
 export const options = {
