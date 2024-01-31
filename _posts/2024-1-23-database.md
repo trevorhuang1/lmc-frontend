@@ -35,8 +35,6 @@ permalink: /data/database
 <!-- 
 Below JavaScript code fetches user data from an API and displays it in a table. It uses the Fetch API to make a GET request to the '/api/users/' endpoint.   Refer to config.js to see additional options. 
 
-The script is laid out in a sequence (no function) and will execute when page is loaded.
--->
 <script type="module">
   // uri variable and options object are obtained from config.js
   import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
