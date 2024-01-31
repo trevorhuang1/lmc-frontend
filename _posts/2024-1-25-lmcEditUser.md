@@ -83,6 +83,7 @@ The script defines a function when the page loads. This function is triggered wh
             uid: document.getElementById("uid").value,
             dob: document.getElementById("dob").value,
             name: document.getElementById("name").value,
+            favoritefood: document.getElementById("favfood").value
             // favfood: document.getElementById("name").value
         };
 

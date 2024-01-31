@@ -19,6 +19,7 @@ permalink: /data/database
     <th>Name</th>
     <th>ID</th>
     <th>Age</th>
+    <th>Favorite Food</th>
   </tr>
   </thead>
   <tbody id="result">
@@ -78,14 +79,17 @@ The script is laid out in a sequence (no function) and will execute when page is
             const name = document.createElement("td");
             const id = document.createElement("td");
             const age = document.createElement("td");
+            const favoritefood = document.createElement("td");
             // data is specific to the API
             name.innerHTML = row.name; 
             id.innerHTML = row.uid; 
             age.innerHTML = row.age; 
+            favoritefood.innerHTML = row.favoritefood;
             // this builds td's into tr
             tr.appendChild(name);
             tr.appendChild(id);
             tr.appendChild(age);
+            tr.appendChild(favoritefood);
             // append the row to table
             resultContainer.appendChild(tr);
         }
