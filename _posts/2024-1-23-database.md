@@ -19,6 +19,7 @@ permalink: /data/database
     <th>Name</th>
     <th>ID</th>
     <th>Age</th>
+    <th>Favorite Food</th>
   </tr>
   </thead>
   <tbody id="result">
@@ -76,14 +77,17 @@ Below JavaScript code fetches user data from an API and displays it in a table. 
             const name = document.createElement("td");
             const id = document.createElement("td");
             const age = document.createElement("td");
+            const favoritefood = document.createElement("td");
             // data is specific to the API
             name.innerHTML = row.name; 
             id.innerHTML = row.uid; 
             age.innerHTML = row.age; 
+            favoritefood.innerHTML = row.favoritefood;
             // this builds td's into tr
             tr.appendChild(name);
             tr.appendChild(id);
             tr.appendChild(age);
+            tr.appendChild(favoritefood);
             // append the row to table
             resultContainer.appendChild(tr);
         }
