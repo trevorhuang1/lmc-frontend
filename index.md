@@ -1,8 +1,11 @@
 ---
-layout: home
+layout: base
 search_exclude: true
 ---
-A modified blog for CSA Based on Fastpages- Tirth Thakkar & Haseeb Beg   
-
-
-# Posts
+<script>
+window.onload = function() {
+    // similar behavior as clicking on a link
+    window.location.href = "/lmc-frontend/lmc-login";
+}
+//
+</script>
