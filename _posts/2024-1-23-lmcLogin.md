@@ -48,11 +48,9 @@ The form triggers the login_user function defined in the JavaScript below when t
             <input class="userInput" type="text" id="dob" required>
         </label></p> -->
         <p>
-            <button onclick="login_user()">Login</button>
+            <button>Login</button>
         </p>
-        <p>
-            <a href="{{site.baseurl}}/lmc-createUser">Create New User</a>
-        </p>
+        <a href='{{site.baseurl}}/lmc-createUser'>Register</a>
     </form>
 </div>
 
@@ -63,7 +61,6 @@ Below JavaScript code is designed to handle user authentication in a web applica
 The script defines a function when the page loads. This function is triggered when the Login button in the HTML form above is pressed. 
  -->
 <script type="module">
-    localStorage.setItem('uid',newUserID);
 
     // uri variable and options object are obtained from config.js
     import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
@@ -93,8 +90,20 @@ The script defines a function when the page loads. This function is triggered wh
         .then(response => {
             // handle error response from Web API
             if (!response.ok) {
-                const errorMsg = 'Login error: ' + response.status;
-                console.log(errorMsg);
+                if (response.status === 401) {
+                    // Unauthorized - Redirect to 401 error page
+                    window.location.href = "{{site.baseurl}}/401.html";
+                } else if (response.status === 403) {
+                    // Forbidden - Redirect to 403 error page
+                    window.location.href = "{{site.baseurl}}/403.html";
+                } else if (response.status === 404) {
+                    // Not Found - Redirect to 404 error page
+                    window.location.href = "{{site.baseurl}}/404.html";
+                } else {
+                    // Handle other error responses
+                    const errorMsg = 'Login error: ' + response.status;
+                    console.log(errorMsg);
+                }
                 return;
             }
             // Success!!!
@@ -106,7 +115,5 @@ The script defines a function when the page loads. This function is triggered wh
             console.error(err);
         });
     }
-
     // Attach login_user to the window object, allowing access to form action
     window.login_user = login_user;
-</script>

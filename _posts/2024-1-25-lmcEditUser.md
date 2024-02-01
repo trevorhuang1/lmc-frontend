@@ -30,12 +30,20 @@ The form triggers the login_user function defined in the JavaScript below when t
         <img src="/lmc-frontend/images/cookie.png" width="92px" height="100px">
         </p>
         <p><label>
+            Name:
+            <input class="userInput" type="text" id="name" required>
+        </label></p>
+        <p><label>
             User ID:
             <input class="userInput" type="text" name="uid" id="uid" required>
         </label></p>
         <p><label>
             Date of Birth:
             <input class="userInput" type="text" id="dob" required>
+        </label></p>
+         <p><label>
+            Fav Food:
+            <input class="userInput" type="text" id="favfood" required>
         </label></p>
         <p>
             <button onclick="login_user()">Submit</button>
@@ -56,7 +64,7 @@ The script defines a function when the page loads. This function is triggered wh
     const body = {
             // name: document.getElementById("name").value,
             uid: "toby",
-            password: "123toby"
+            password: "123toby",
             // dob: document.getElementById("dob").value
         };
     const authOptions = {
@@ -73,7 +81,10 @@ The script defines a function when the page loads. This function is triggered wh
         // Set the body of the request to include login data from the DOM
         const body = {
             uid: document.getElementById("uid").value,
-            dob: document.getElementById("dob").value
+            dob: document.getElementById("dob").value,
+            name: document.getElementById("name").value,
+            favoritefood: document.getElementById("favfood").value
+            // favfood: document.getElementById("name").value
         };
 
         // Change options according to Authentication requirements
@@ -95,6 +106,7 @@ The script defines a function when the page loads. This function is triggered wh
             }
             // Success!!!
             // Redirect to the database page
+            window.location.href = "{{site.baseurl}}/data/database";
         })
         // catch fetch errors (ie ACCESS to server blocked)
         .catch(err => {
