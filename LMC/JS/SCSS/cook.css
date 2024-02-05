@@ -1,0 +1,67 @@
+.pan {
+    position: absolute;
+    margin-left: 0px;
+    width: 700px;
+    height: 600px;
+    border-radius: 20px; /* Adjust the border-radius to control the roundness of the corners */
+    background-color: #808080; /* Set the background color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.insidePan
+{
+    background-color: #3b3b3b;
+    border-radius: 20px;
+    width: 600px;
+    height: 500px;
+}
+.listIngredients-container
+{
+    position: absolute;
+    right: 0;
+    top:0;
+    width: 400px;
+    height: 100%;
+    background-color: #441025; 
+    border: 5px solid #000000; /
+}
+
+#card{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: #fff;
+}
+#drop-zone-UL
+{
+    position: absolute;
+    margin-top:0;
+    width: 300px;
+    height: 250px;
+}
+#drop-zone-UR
+{
+    position: absolute;
+    top: 50px;
+    right: 50px;
+    width: 300px;
+    height: 250px;
+}
+#bake{
+    display: grid;
+    place-items: center;
+    bottom: 10px;
+    position: absolute;
+}
+button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 7px 22px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 12px;
+}
