@@ -97,7 +97,7 @@ The script defines a function when the page loads. This function is triggered wh
                     // Forbidden - Redirect to 403 error page
                     window.location.href = "{{site.baseurl}}/403.html";
                 } else if (response.status === 400) {
-                    // Forbidden - Redirect to 403 error page
+                    // Forbidden - Redirect to 400 error page
                     window.location.href = "{{site.baseurl}}/400.html";
                 } else if (response.status === 404) {
                     // Not Found - Redirect to 404 error page
