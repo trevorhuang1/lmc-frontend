@@ -48,6 +48,22 @@
     width: 300px;
     height: 250px;
 }
+#drop-zone-BL
+{
+    position: absolute;
+    bottom: 50px;
+    left: 50px;
+    width: 300px;
+    height: 250px;
+}
+#drop-zone-BR
+{
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+    width: 300px;
+    height: 250px;
+}
 #bake{
     display: grid;
     place-items: center;
