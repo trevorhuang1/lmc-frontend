@@ -76,7 +76,7 @@ The script defines a function when the page loads. This function is triggered wh
             password: document.getElementById("password").value,
             // dob: document.getElementById("dob").value
         };
-
+        localStorage.setItem("uid",document.getElementById("uid").value );
         // Change options according to Authentication requirements
         const authOptions = {
             ...options, // This will copy all properties from options
@@ -93,6 +93,10 @@ The script defines a function when the page loads. This function is triggered wh
                 if (response.status === 401) {
                     // Unauthorized - Redirect to 401 error page
                     window.location.href = "{{site.baseurl}}/401.html";
+                } 
+                else if (response.status === 400) {
+                    // Forbidden - Redirect to 403 error page
+                    window.location.href = "{{site.baseurl}}/400.html";
                 } else if (response.status === 403) {
                     // Forbidden - Redirect to 403 error page
                     window.location.href = "{{site.baseurl}}/403.html";
