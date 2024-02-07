@@ -26,6 +26,7 @@ dropZones.forEach(function(dropZone)
 
 function openNav(x)
 {
+    document.getElementById("sideNav-content").style.display = "block";
     console.log(counter);
     if (counter < 1){
         document.getElementById("sideNav").style.width = "200px";
@@ -40,5 +41,6 @@ function openNav(x)
 function closeNav()
 {
     document.getElementById("sideNav").style.width = "50px";
+    document.getElementById("sideNav-content").style.display = "none";
     counter = 0;
 }
