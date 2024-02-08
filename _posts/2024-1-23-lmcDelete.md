@@ -35,16 +35,16 @@ The form triggers the login_user function defined in the JavaScript below when t
             <input class="userInput" type="text" name="name" id="name" required>
         </label>
         </p> -->
-        <p><label>
+        <!-- <p><label>
             User ID:
             <input class="userInput" type="text" name="uid" id="uid" required>
-        </label></p>
+        </label></p> -->
         <!-- <p><label>
             Date of Birth:
             <input class="userInput" type="text" id="dob" required>
         </label></p> -->
         <p>
-            <button onclick="login_user()">Login</button>
+            <button onclick="login_user()">Delete User</button>
         </p>
     </form>
 </div>
@@ -58,30 +58,15 @@ The script defines a function when the page loads. This function is triggered wh
 <script type="module">
     // uri variable and options object are obtained from config.js
     import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
-    localStorage.setItem('userID',document.getElementById("uid").value);
-    const url = uri + '/api/users/authenticate';
-    const body = {
-            // name: document.getElementById("name").value,
-            uid: "toby",
-            password: "123toby"
-            // dob: document.getElementById("dob").value
-        };
-    const authOptions = {
-            ...options,// This will copy all properties from options
-            method: 'POST', // Override the method property
-            cache: 'no-cache', // Set the cache property
-            body: JSON.stringify(body)
-        };
-    fetch(url, authOptions)
-
     function login_user(){
         // Set Authenticate endpoint
         const url = uri + '/api/users/';
-
+        const user = localStorage.getItem("uid");
+        console.log(user)
         // Set the body of the request to include login data from the DOM
         const body = {
             // name: document.getElementById("name").value,
-            uid: document.getElementById("uid").value,
+            uid: user,
             // dob: document.getElementById("dob").value
         };
 
