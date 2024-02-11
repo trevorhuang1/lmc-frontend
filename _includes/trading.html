@@ -1,0 +1,91 @@
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    .dropbtn {
+      background-color: #a8329d;
+      color: black;
+      padding: 16px;
+      font-size: 16px;
+      border: none;
+    }
+    
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f1f1f1;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+    
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+    
+    .dropdown-content a:hover {
+      background-color: #ddd;
+    }
+    
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    
+    .dropdown:hover .dropbtn {
+      background-color: #96238a;
+    }
+    
+    h2 {
+      color: white;
+    }
+  </style>
+</head>
+
+<body style="background-color:white;">
+  <h2>Friends list</h2>
+  <div class="dropdown" id="friendsDropdown">
+    <button class="dropbtn" id="friendsDropdownBtn">Your friends</button>
+    <div class="dropdown-content" id="friendsDropdownContent"></div>
+  </div>
+  
+  <div class="dropdown" id="usersDropdown">
+    <button class="dropbtn" id="usersDropdownBtn">Users</button>
+    <div class="dropdown-content" id="usersDropdownContent"></div>
+  </div>
+  
+  <div class="dropdown" id="tradeDropdown">
+    <button class="dropbtn" id="tradeDropdownBtn">Trade</button>
+    <div class="dropdown-content" id="tradeDropdownContent"></div>
+  </div>
+</body>
+
+<script>
+  // Drop down items
+  //this really helped: https://stackoverflow.com/questions/4772774/how-do-i-create-a-link-using-javascript
+  var friends = ["Friend 1", "Friend 2", "Friend 3"];
+  var users = ["User 1", "User 2", "User 3"];
+  var trade = ["Item 1", "Item 2", "Item 3"];
+
+  // This function creates the dropdown items with a for loop
+  function createDropdownItems(items, contentId, buttonId) {
+    var dropdownContent = document.getElementById(contentId);
+    dropdownContent.innerHTML = ''; // Clear previous items
+    for (i = 0; i < items.length; i++) {
+      var text = document.createElement('a')
+      text.innerHTML = items[i];
+      dropdownContent.appendChild(text);
+    }
+  }
+
+  // Populate dropdowns with options
+  createDropdownItems(friends, 'friendsDropdownContent', 'friendsDropdownBtn');
+  createDropdownItems(users, 'usersDropdownContent', 'usersDropdownBtn');
+  createDropdownItems(trade, 'tradeDropdownContent', 'tradeDropdownBtn');
+</script>
