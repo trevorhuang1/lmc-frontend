@@ -66,26 +66,57 @@
   </div>
 </body>
 
-<script>
+<script type="module">
+  import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
   // Drop down items
   //this really helped: https://stackoverflow.com/questions/4772774/how-do-i-create-a-link-using-javascript
-  var friends = ["Friend 1", "Friend 2", "Friend 3"];
-  var users = ["User 1", "User 2", "User 3"];
-  var trade = ["Item 1", "Item 2", "Item 3"];
+  var friends = [];
+  var users = [];
+  var trade = [];
+  const url = uri + '/api/users/';
 
   // This function creates the dropdown items with a for loop
   function createDropdownItems(items, contentId, buttonId) {
     var dropdownContent = document.getElementById(contentId);
     dropdownContent.innerHTML = ''; // Clear previous items
-    for (i = 0; i < items.length; i++) {
+    for (let i = 0; i < items.length; i++) {
       var text = document.createElement('a')
       text.innerHTML = items[i];
       dropdownContent.appendChild(text);
     }
   }
+  function fetchDb(){
+    fetch(url, options)
+        // response is a RESTful "promise" on any successful fetch
+        .then(response => {
+            // check for response errors and display
+            if (response.status !== 200) {
+                if (response.status === 401 || response.status == 403) {
+                    // Unauthorized - Redirect to 401 error page
+                    window.location.href = "/lmc-frontend/lmc-login";
+                }
+            }
+            // valid response will contain JSON data
+            response.json().then(data => {
+                console.log(data);
+                for (let i = 0; i < data.length; i++) {
+                    var user = data[i];
+                    users.push(user.uid);
+                    friends.push(user.friends);
+                }
+                //filling up the dropdown t ables
+                createDropdownItems(friends, 'friendsDropdownContent', 'friendsDropdownBtn');
+                createDropdownItems(users, 'usersDropdownContent', 'usersDropdownBtn');
+                createDropdownItems(trade, 'tradeDropdownContent', 'tradeDropdownBtn');
+            });
+        })
+        // catch fetch errors (ie ACCESS to server blocked)
+        .catch(err => {
+            console.error(err);
+        });
+    }
+  fetchDb()
 
-  // Populate dropdowns with options
-  createDropdownItems(friends, 'friendsDropdownContent', 'friendsDropdownBtn');
-  createDropdownItems(users, 'usersDropdownContent', 'usersDropdownBtn');
-  createDropdownItems(trade, 'tradeDropdownContent', 'tradeDropdownBtn');
+  console.log("friends ",friends)
+  console.log("users",users)
 </script>
