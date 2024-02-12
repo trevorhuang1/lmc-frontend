@@ -1,35 +1,57 @@
-const card = document.getElementById("card");
-var counter = 0;
-const dropZoneUL = document.getElementById("drop-zone-UL");
-const dropZoneUR = document.getElementById("drop-zone-UR");
-const dropZoneBL = document.getElementById("drop-zone-BL");
-const dropZoneBR = document.getElementById("drop-zone-BR");
+document.addEventListener("DOMContentLoaded", function() {
+    // Your JavaScript code here
+    const ingredients = [
+        'sugar',
+        'flour',
+        'eggs',
+        'food15.png'
+    ];
+    const card = document.getElementById("card");
+    const dropZoneUL = document.getElementById("drop-zone-UL");
+    const dropZoneUR = document.getElementById("drop-zone-UR");
+    const dropZoneBL = document.getElementById("drop-zone-BL");
+    const dropZoneBR = document.getElementById("drop-zone-BR");
 
-const dropZones = [dropZoneUL,dropZoneUR,dropZoneBL,dropZoneBR];
-card.addEventListener('dragstart', function(event) {
-    printItemsInDropZones();
-    const draggedElementId = event.target.querySelector('img').id;
-    // Attach the ID to the data being transferred
-    event.dataTransfer.setData("text/plain", draggedElementId);
-    console.log(event);
-})
 
-dropZones.forEach(function(dropZone)
-{
-    dropZone.addEventListener('dragover', function(event)
-    {
-        event.preventDefault();
-    })
-    dropZone.addEventListener('drop', function(event) {
-        const droppedElementId = event.dataTransfer.getData("text/plain");
-        const droppedElement = document.getElementById(droppedElementId);
-        console.log("Dropped element ID:", droppedElementId);
-        // Now you can use the droppedElement or its ID as needed
-        dropZone.prepend(droppedElement);
-        droppedElement.style.width = "300px";
-        droppedElement.style.height = "250px";
-    })
-})
+    const dropZones = [dropZoneUL, dropZoneUR, dropZoneBL, dropZoneBR];
+
+ingredients.forEach(function(ingredient) {
+    if (ingredient) {
+        // Set elements draggable only if they exist
+        currentIngredient = document.getElementById(ingredient);
+        currentIngredient.draggable = true;
+
+        currentIngredient.addEventListener('dragstart', function(event) {
+            console.log('Drag Start:', event);
+            localStorage.setItem('draggingIngredient', ingredient);
+            console.log(ingredient);
+        });
+    }
+});
+
+dropZones.forEach(function(dropZone) {
+    if (dropZone) {
+        dropZone.addEventListener('dragover', function(event) {
+            event.preventDefault();
+        });
+        dropZone.addEventListener('drop', function(event) {
+            event.preventDefault(); // Prevent default action
+            const itemDragged = localStorage.getItem('draggingIngredient');
+            dropZone.prepend(document.getElementById(itemDragged));
+            
+            // Adjusting styles on drop
+            ingredients.forEach(function(ingredient) {
+                if (ingredient) {
+                    document.getElementById(ingredient).style.width = "300px";
+                    document.getElementById(ingredient).style.height = "250px";
+                }
+            });
+        });
+    }
+});
+});
+// Your openNav and closeNav functions remain unchanged
+
 
 function openNav(x)
 {
@@ -50,22 +72,4 @@ function closeNav()
     document.getElementById("sideNav").style.width = "50px";
     document.getElementById("sideNav-content").style.display = "none";
     counter = 0;
-}
-function getItemsInDropZone(dropZone) {
-    const items = Array.from(dropZone.children).map(item => item.innerText);
-    return items;
-}
-
-function getAllItemsInDropZones() {
-    const allItems = [];
-    dropZones.forEach(dropZone => {
-        const itemsInDropZone = getItemsInDropZone(dropZone);
-        allItems.push(...itemsInDropZone);
-    });
-    return allItems;
-}
-
-function printItemsInDropZones() {
-    const allItems = getAllItemsInDropZones();
-    console.log(allItems);
 }
