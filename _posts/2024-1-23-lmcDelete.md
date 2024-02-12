@@ -5,7 +5,7 @@ title: LMC Login page
 description: cooking
 courses: {'compsci': {'week': 4}}
 type: hacks
-permalink: /lmc-login
+permalink: /lmc-deleteUser
 ---
 <style>
 
@@ -35,22 +35,17 @@ The form triggers the login_user function defined in the JavaScript below when t
             <input class="userInput" type="text" name="name" id="name" required>
         </label>
         </p> -->
-        <p><label>
+        <!-- <p><label>
             User ID:
             <input class="userInput" type="text" name="uid" id="uid" required>
-        </label></p>
-        <p ><label>
-            Password:
-            <input class="userInput" type="password" name="password" id="password" required>
-        </label></p>
+        </label></p> -->
         <!-- <p><label>
             Date of Birth:
             <input class="userInput" type="text" id="dob" required>
         </label></p> -->
         <p>
-            <button>Login</button>
+            <button onclick="login_user()">Delete User</button>
         </p>
-        <a href='{{site.baseurl}}/lmc-createUser'>Register</a>
     </form>
 </div>
 
@@ -61,27 +56,25 @@ Below JavaScript code is designed to handle user authentication in a web applica
 The script defines a function when the page loads. This function is triggered when the Login button in the HTML form above is pressed. 
  -->
 <script type="module">
-
     // uri variable and options object are obtained from config.js
     import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
-
     function login_user(){
         // Set Authenticate endpoint
-        const url = uri + '/api/users/authenticate';
-
+        const url = uri + '/api/users/';
+        const user = localStorage.getItem("uid");
+        console.log(user)
         // Set the body of the request to include login data from the DOM
         const body = {
             // name: document.getElementById("name").value,
-            uid: document.getElementById("uid").value,
-            password: document.getElementById("password").value,
+            uid: user,
             // dob: document.getElementById("dob").value
         };
-        localStorage.setItem("uid",document.getElementById("uid").value );
+
         // Change options according to Authentication requirements
         const authOptions = {
             ...options, // This will copy all properties from options
-            method: 'POST', // Override the method property
-            cache: 'no-cache', // Set the cache property
+            cache: 'no-cache',
+            method: 'DELETE',
             body: JSON.stringify(body)
         };
 
@@ -90,37 +83,20 @@ The script defines a function when the page loads. This function is triggered wh
         .then(response => {
             // handle error response from Web API
             if (!response.ok) {
-                if (response.status === 401) {
-                    // Unauthorized - Redirect to 401 error page
-                    window.location.href = "{{site.baseurl}}/401.html";
-                } 
-                else if (response.status === 400) {
-                    // Forbidden - Redirect to 403 error page
-                    window.location.href = "{{site.baseurl}}/400.html";
-                } else if (response.status === 403) {
-                    // Forbidden - Redirect to 403 error page
-                    window.location.href = "{{site.baseurl}}/403.html";
-                } else if (response.status === 400) {
-                    // Forbidden - Redirect to 400 error page
-                    window.location.href = "{{site.baseurl}}/400.html";
-                } else if (response.status === 404) {
-                    // Not Found - Redirect to 404 error page
-                    window.location.href = "{{site.baseurl}}/404.html";
-                } else {
-                    // Handle other error responses
-                    const errorMsg = 'Login error: ' + response.status;
-                    console.log(errorMsg);
-                }
+                const errorMsg = 'Login error: ' + response.status;
+                console.log(errorMsg);
                 return;
             }
             // Success!!!
             // Redirect to the database page
-            window.location.href = "{{site.baseurl}}/data/database";
+            window.location.href = "{{site.baseurl}}/lmc-login";
         })
         // catch fetch errors (ie ACCESS to server blocked)
         .catch(err => {
             console.error(err);
         });
     }
+
     // Attach login_user to the window object, allowing access to form action
     window.login_user = login_user;
+</script>

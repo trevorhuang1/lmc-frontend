@@ -30,12 +30,20 @@ The form triggers the login_user function defined in the JavaScript below when t
         <img src="/lmc-frontend/images/cookie.png" width="92px" height="100px">
         </p>
         <p><label>
+            Name:
+            <input class="userInput" type="text" id="name" required>
+        </label></p>
+        <p><label>
             User ID:
             <input class="userInput" type="text" name="uid" id="uid" required>
         </label></p>
         <p><label>
             Date of Birth:
             <input class="userInput" type="text" id="dob" required>
+        </label></p>
+         <p><label>
+            Fav Food:
+            <input class="userInput" type="text" id="favfood" required>
         </label></p>
         <p>
             <button onclick="login_user()">Submit</button>
@@ -52,20 +60,20 @@ The script defines a function when the page loads. This function is triggered wh
 <script type="module">
     // uri variable and options object are obtained from config.js
     import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
-    const url = uri + '/api/users/authenticate';
-    const body = {
-            // name: document.getElementById("name").value,
-            uid: "toby",
-            password: "123toby"
-            // dob: document.getElementById("dob").value
-        };
-    const authOptions = {
-            ...options, // This will copy all properties from options
-            method: 'POST', // Override the method property
-            cache: 'no-cache', // Set the cache property
-            body: JSON.stringify(body)
-        };
-    fetch(url, authOptions)
+    // const url = uri + '/api/users/authenticate';
+    // const body = {
+    //         // name: document.getElementById("name").value,
+    //         uid: "toby",
+    //         password: "123toby",
+    //         // dob: document.getElementById("dob").value
+    //     };
+    // const authOptions = {
+    //         ...options, // This will copy all properties from options
+    //         method: 'POST', // Override the method property
+    //         cache: 'no-cache', // Set the cache property
+    //         body: JSON.stringify(body)
+    //     };
+    // fetch(url, authOptions)
     function login_user(){
         // Set Authenticate endpoint
         const url = uri + '/api/users/';
@@ -73,7 +81,10 @@ The script defines a function when the page loads. This function is triggered wh
         // Set the body of the request to include login data from the DOM
         const body = {
             uid: document.getElementById("uid").value,
-            dob: document.getElementById("dob").value
+            dob: document.getElementById("dob").value,
+            name: document.getElementById("name").value,
+            favoritefood: document.getElementById("favfood").value
+            // favfood: document.getElementById("name").value
         };
 
         // Change options according to Authentication requirements
@@ -89,12 +100,32 @@ The script defines a function when the page loads. This function is triggered wh
         .then(response => {
             // handle error response from Web API
             if (!response.ok) {
-                const errorMsg = 'Login error: ' + response.status;
-                console.log(errorMsg);
+                if (response.status === 401) {
+                    // Unauthorized - Redirect to 401 error page
+                    window.location.href = "{{site.baseurl}}/401.html";
+                }
+                else if (response.status === 400) {
+                    // Forbidden - Redirect to 403 error page
+                    window.location.href = "{{site.baseurl}}/400.html";
+                } else if (response.status === 403) {
+                    // Forbidden - Redirect to 403 error page
+                    window.location.href = "{{site.baseurl}}/403.html";
+                } else if (response.status === 400) {
+                    // Forbidden - Redirect to 400 error page
+                    window.location.href = "{{site.baseurl}}/400.html";
+                } else if (response.status === 404) {
+                    // Not Found - Redirect to 404 error page
+                    window.location.href = "{{site.baseurl}}/404.html";
+                } else {
+                    // Handle other error responses
+                    const errorMsg = 'Login error: ' + response.status;
+                    console.log(errorMsg);
+                }
                 return;
             }
             // Success!!!
             // Redirect to the database page
+            window.location.href = "{{site.baseurl}}/data/database";
         })
         // catch fetch errors (ie ACCESS to server blocked)
         .catch(err => {

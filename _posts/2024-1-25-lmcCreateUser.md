@@ -66,33 +66,17 @@ The script defines a function when the page loads. This function is triggered wh
 <script type="module">
     // uri variable and options object are obtained from config.js
     import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
-    const url = uri + '/api/users/authenticate';
-    const body = {
-            // name: document.getElementById("name").value,
-            uid: "toby",
-            password: "123toby"
-            // dob: document.getElementById("dob").value
-        };
-    const authOptions = {
-            ...options, // This will copy all properties from options
-            method: 'POST', // Override the method property
-            cache: 'no-cache', // Set the cache property
-            body: JSON.stringify(body)
-        };
-    fetch(url, authOptions)
     function login_user(){
         // Set Authenticate endpoint
         const url = uri + '/api/users/';
-
         // Set the body of the request to include login data from the DOM
         const body = {
             name: document.getElementById("name").value,
             uid: document.getElementById("uid").value,
             password: document.getElementById("password").value,
             dob: document.getElementById("dob").value,
-			fav_food: document.getElementById("food").value
+			favoritefood: document.getElementById("food").value
         };
-
         // Change options according to Authentication requirements
         const authOptions = {
             ...options, // This will copy all properties from options
@@ -112,7 +96,7 @@ The script defines a function when the page loads. This function is triggered wh
             }
             // Success!!!
             // Redirect to the database page
-            window.location.href = "/lmc-frontend/_posts/2024-1-23-lmcLogin.md";
+            window.location.href = "{{site.baseurl}}/lmc-login";
         })
         // catch fetch errors (ie ACCESS to server blocked)
         .catch(err => {
