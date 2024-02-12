@@ -11,7 +11,14 @@ permalink: /data/database
 <!-- HTML table layout for page.  The table is filled by JavaScript below. 
 -->
 
-
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leaderboard</title>
+<link rel="stylesheet" href="/lmc-frontend/LMC/JS/SCSS/leaderboard.css"> <!-- Link to the external CSS file -->
+</head>
+<body>
 
 <table>
   <thead>
@@ -19,7 +26,7 @@ permalink: /data/database
     <th>Name</th>
     <th>ID</th>
     <th>Age</th>
-    <th>Favorite Food</th>
+    <th>Points</th>
   </tr>
   </thead>
   <tbody id="result">
@@ -33,8 +40,7 @@ permalink: /data/database
 <div>
   <button onclick='window.location.href = "{{site.baseurl}}/lmc-deleteUser"'>Delete User</button>
 </div>
-<!-- 
-Below JavaScript code fetches user data from an API and displays it in a table. It uses the Fetch API to make a GET request to the '/api/users/' endpoint.   Refer to config.js to see additional options. 
+
 
 <script type="module">
   // uri variable and options object are obtained from config.js
@@ -78,17 +84,17 @@ Below JavaScript code fetches user data from an API and displays it in a table. 
             const name = document.createElement("td");
             const id = document.createElement("td");
             const age = document.createElement("td");
-            const favoritefood = document.createElement("td");
+            const points = document.createElement("td");
             // data is specific to the API
             name.innerHTML = row.name; 
             id.innerHTML = row.uid; 
             age.innerHTML = row.age; 
-            favoritefood.innerHTML = row.favoritefood;
+            points.innerHTML = row.points;
             // this builds td's into tr
             tr.appendChild(name);
             tr.appendChild(id);
             tr.appendChild(age);
-            tr.appendChild(favoritefood);
+            tr.appendChild(points);
             // append the row to table
             resultContainer.appendChild(tr);
         }
