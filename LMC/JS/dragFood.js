@@ -3,8 +3,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const ingredients = [
         'sugar',
         'flour',
-        'eggs',
-        'food15.png'
+        'egg',
+        'glaze'
     ];
     const card = document.getElementById("card");
     const dropZoneUL = document.getElementById("drop-zone-UL");
