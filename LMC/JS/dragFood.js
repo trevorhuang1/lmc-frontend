@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const dropZoneBL = document.getElementById("drop-zone-BL");
     const dropZoneBR = document.getElementById("drop-zone-BR");
 
-
     const dropZones = [dropZoneUL, dropZoneUR, dropZoneBL, dropZoneBR];
 
 ingredients.forEach(function(ingredient) {
@@ -52,7 +51,7 @@ dropZones.forEach(function(dropZone) {
 });
 // Your openNav and closeNav functions remain unchanged
 
-
+var counter = 0;
 function openNav(x)
 {
     document.getElementById("sideNav-content").style.display = "block";
