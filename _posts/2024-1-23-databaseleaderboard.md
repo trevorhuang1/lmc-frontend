@@ -6,8 +6,6 @@ description: An advanced example of database CRUD (Create, Read, Update, Delete)
 permalink: /data/database
 ---
 
-## SQL Database Fetch
-
 <!-- HTML table layout for page.  The table is filled by JavaScript below. 
 -->
 
@@ -19,6 +17,8 @@ permalink: /data/database
 <link rel="stylesheet" href="/lmc-frontend/LMC/JS/SCSS/leaderboard.css"> <!-- Link to the external CSS file -->
 </head>
 <body>
+
+<h2>Leaderboard</h2>
 
 <table>
   <thead>
@@ -78,6 +78,10 @@ permalink: /data/database
     // valid response will contain JSON data
     response.json().then(data => {
         console.log(data);
+
+        // Sort data by points (highest to lowest)
+        data.sort((a, b) => b.points - a.points);
+
         for (const row of data) {
             // tr and td build out for each row
             const tr = document.createElement("tr");
@@ -95,6 +99,7 @@ permalink: /data/database
             tr.appendChild(id);
             tr.appendChild(age);
             tr.appendChild(points);
+
             // append the row to table
             resultContainer.appendChild(tr);
         }
@@ -110,37 +115,5 @@ permalink: /data/database
     tr.appendChild(td);
     resultContainer.appendChild(tr);
   });
-
-//Delete
-// function deleteUser()
-// {
-//   const uid = JSON.parse(localStorage.getItem('newUserID'));
-//   const body = {
-//       // name: document.getElementById("name").value,
-//       uid
-//       // dob: document.getElementById("dob").value
-//   };
-//   const authOptions = {
-//       ...options, // This will copy all properties from options
-//       method: 'DELETE', // Override the method property
-//       cache: 'no-cache', // Set the cache property
-//       body: JSON.stringify(body)
-//   };
-//   fetch(url, authOptions)
-//           .then(response => {
-//               // handle error response from Web API
-//               if (!response.ok) {
-//                   const errorMsg = 'Login error: ' + response.status;
-//                   console.log(errorMsg);
-//                   return;
-//               }
-//               // Success!!!
-//               // Redirect to the database page
-//               ;
-//           })
-//           // catch fetch errors (ie ACCESS to server blocked)
-//           .catch(err => {
-//               console.error(err);
-//           });
-// }
 </script>
+
