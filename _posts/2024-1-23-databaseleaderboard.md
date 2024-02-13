@@ -15,6 +15,7 @@ permalink: /data/database
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Leaderboard</title>
 <link rel="stylesheet" href="/lmc-frontend/LMC/JS/SCSS/leaderboard.css"> <!-- Link to the external CSS file -->
+{% include navbar.html %}
 </head>
 <body>
 

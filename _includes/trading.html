@@ -1,0 +1,165 @@
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    .dropbtn {
+      background-color: #a8329d;
+      color: black;
+      padding: 16px;
+      font-size: 16px;
+      border: none;
+    }
+    
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f1f1f1;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+    
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+    
+    .dropdown-content a:hover {
+      background-color: #ddd;
+    }
+    
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    
+    .dropdown:hover .dropbtn {
+      background-color: #96238a;
+    }
+    
+    h2 {
+      color: white;
+    }
+  </style>
+</head>
+
+<body style="background-color:white;">
+  <h2>Friends list</h2>
+  <div class="dropdown" id="friendsDropdown">
+    <button class="dropbtn" id="friendsDropdownBtn">Your friends</button>
+    <div class="dropdown-content" id="friendsDropdownContent"></div>
+  </div>
+  
+  <div class="dropdown" id="usersDropdown">
+    <button class="dropbtn" id="usersDropdownBtn">Users</button>
+    <div class="dropdown-content" id="usersDropdownContent"></div>
+  </div>
+  
+  <div class="dropdown" id="tradeDropdown">
+    <button class="dropbtn" id="tradeDropdownBtn">Trade</button>
+    <div class="dropdown-content" id="tradeDropdownContent"></div>
+  </div>
+</body>
+
+<script type="module">
+  import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
+  // Drop down items
+  //this really helped: https://stackoverflow.com/questions/4772774/how-do-i-create-a-link-using-javascript
+  var yourFriends = [];
+  var users = [];
+  var trade = [];
+  const url = uri + '/api/users/';
+  const friendUrl = uri + '/api/users/friends';
+  var curr_uid = localStorage.getItem("uid");
+
+  // This function creates the dropdown items with a for loop
+  function createDropdownItems(items, contentId, buttonId) {
+    var dropdownContent = document.getElementById(contentId);
+    dropdownContent.innerHTML = ''; // Clear previous items
+    for (let i = 0; i < items.length; i++) {
+      var text = document.createElement('a')
+      text.innerHTML = items[i];
+      dropdownContent.appendChild(text);
+    }
+  }
+  fetch(url, options)
+      // response is a RESTful "promise" on any successful fetch
+      .then(response => {
+          // check for response errors and display
+          if (response.status !== 200) {
+              if (response.status === 401 || response.status == 403) {
+                  // Unauthorized - Redirect to 401 error page
+                  window.location.href = "/lmc-frontend/lmc-login";
+              }
+          }
+          // valid response will contain JSON data
+          response.json().then(data => {
+              console.log(data);
+              for (let i = 0; i < data.length; i++) {
+                  var user = data[i];
+                  users.push(user.uid);
+                  if (user.uid == curr_uid) {
+                    //changes from json to list
+                    var parsed = JSON.parse(user.friends)
+                    for (var j = 0; j < parsed.length; j++){
+                      yourFriends.push(parsed[j]);
+                    }
+                    var parsed2 = JSON.parse(user.items)
+                    for (var k = 0; k < parsed2.length; k++){
+                      trade.push(parsed2[k]);
+                    }
+
+                  }
+                  
+              }
+              //filling up the dropdown t ables
+              console.log("friends", yourFriends);
+              console.log("users", users);
+              console.log("items", trade);
+
+              createDropdownItems(users, 'usersDropdownContent', 'usersDropdownBtn');
+              createDropdownItems(yourFriends, 'friendsDropdownContent', 'usersDropdownBtn');
+              createDropdownItems(trade, 'tradeDropdownContent', 'tradeDropdownBtn');
+          });
+      })
+      // catch fetch errors (ie ACCESS to server blocked)
+      .catch(err => {
+          console.error(err);
+      });
+
+  // fetch(friendUrl, options)
+  //     // response is a RESTful "promise" on any successful fetch
+  //     .then(response => {
+  //         // check for response errors and display
+  //         if (response.status !== 200) {
+  //             if (response.status === 401 || response.status == 403) {
+  //                 // Unauthorized - Redirect to 401 error page
+  //                 window.location.href = "/lmc-frontend/lmc-login";
+  //             }
+  //         }
+  //         // valid response will contain JSON data
+  //         response.json().then(data => {
+  //             console.log("friends", data);
+  //             for (let i = 0; i < data.length; i++) {
+  //                 var user = data[i];
+  //                 yourFriends.push(user.friends);
+  //                 items.push(user.items)
+  //             }
+  //             //filling up the dropdown t ables
+  //             createDropdownItems(yourFriends, 'friendsDropdownContent', 'friendsDropdownBtn');
+  //             createDropdownItems(trade, 'tradeDropdownContent', 'tradeDropdownBtn');
+  //         });
+  //     })
+  //     // catch fetch errors (ie ACCESS to server blocked)
+  //     .catch(err => {
+  //         console.error(err);
+  //       });
+
+  console.log("friends ",yourFriends)
+  console.log("users",users)
+</script>
