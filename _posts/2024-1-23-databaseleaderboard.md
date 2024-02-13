@@ -6,12 +6,19 @@ description: An advanced example of database CRUD (Create, Read, Update, Delete)
 permalink: /data/database
 ---
 
-## SQL Database Fetch
-
 <!-- HTML table layout for page.  The table is filled by JavaScript below. 
 -->
 
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leaderboard</title>
+<link rel="stylesheet" href="/lmc-frontend/LMC/JS/SCSS/leaderboard.css"> <!-- Link to the external CSS file -->
+</head>
+<body>
 
+<h2>Leaderboard</h2>
 
 <table>
   <thead>
@@ -19,7 +26,7 @@ permalink: /data/database
     <th>Name</th>
     <th>ID</th>
     <th>Age</th>
-    <th>Favorite Food</th>
+    <th>Points</th>
   </tr>
   </thead>
   <tbody id="result">
@@ -33,8 +40,7 @@ permalink: /data/database
 <div>
   <button onclick='window.location.href = "{{site.baseurl}}/lmc-deleteUser"'>Delete User</button>
 </div>
-<!-- 
-Below JavaScript code fetches user data from an API and displays it in a table. It uses the Fetch API to make a GET request to the '/api/users/' endpoint.   Refer to config.js to see additional options. 
+
 
 <script type="module">
   // uri variable and options object are obtained from config.js
@@ -72,23 +78,28 @@ Below JavaScript code fetches user data from an API and displays it in a table. 
     // valid response will contain JSON data
     response.json().then(data => {
         console.log(data);
+
+        // Sort data by points (highest to lowest)
+        data.sort((a, b) => b.points - a.points);
+
         for (const row of data) {
             // tr and td build out for each row
             const tr = document.createElement("tr");
             const name = document.createElement("td");
             const id = document.createElement("td");
             const age = document.createElement("td");
-            const favoritefood = document.createElement("td");
+            const points = document.createElement("td");
             // data is specific to the API
             name.innerHTML = row.name; 
             id.innerHTML = row.uid; 
             age.innerHTML = row.age; 
-            favoritefood.innerHTML = row.favoritefood;
+            points.innerHTML = row.points;
             // this builds td's into tr
             tr.appendChild(name);
             tr.appendChild(id);
             tr.appendChild(age);
-            tr.appendChild(favoritefood);
+            tr.appendChild(points);
+
             // append the row to table
             resultContainer.appendChild(tr);
         }
@@ -104,37 +115,5 @@ Below JavaScript code fetches user data from an API and displays it in a table. 
     tr.appendChild(td);
     resultContainer.appendChild(tr);
   });
-
-//Delete
-// function deleteUser()
-// {
-//   const uid = JSON.parse(localStorage.getItem('newUserID'));
-//   const body = {
-//       // name: document.getElementById("name").value,
-//       uid
-//       // dob: document.getElementById("dob").value
-//   };
-//   const authOptions = {
-//       ...options, // This will copy all properties from options
-//       method: 'DELETE', // Override the method property
-//       cache: 'no-cache', // Set the cache property
-//       body: JSON.stringify(body)
-//   };
-//   fetch(url, authOptions)
-//           .then(response => {
-//               // handle error response from Web API
-//               if (!response.ok) {
-//                   const errorMsg = 'Login error: ' + response.status;
-//                   console.log(errorMsg);
-//                   return;
-//               }
-//               // Success!!!
-//               // Redirect to the database page
-//               ;
-//           })
-//           // catch fetch errors (ie ACCESS to server blocked)
-//           .catch(err => {
-//               console.error(err);
-//           });
-// }
 </script>
+
