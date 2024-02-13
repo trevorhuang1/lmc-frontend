@@ -3,15 +3,14 @@ document.addEventListener("DOMContentLoaded", function() {
     const ingredients = [
         'sugar',
         'flour',
-        'eggs',
-        'food15.png'
+        'egg',
+        'glaze'
     ];
     const card = document.getElementById("card");
     const dropZoneUL = document.getElementById("drop-zone-UL");
     const dropZoneUR = document.getElementById("drop-zone-UR");
     const dropZoneBL = document.getElementById("drop-zone-BL");
     const dropZoneBR = document.getElementById("drop-zone-BR");
-
 
     const dropZones = [dropZoneUL, dropZoneUR, dropZoneBL, dropZoneBR];
 
@@ -52,7 +51,7 @@ dropZones.forEach(function(dropZone) {
 });
 // Your openNav and closeNav functions remain unchanged
 
-
+var counter = 0;
 function openNav(x)
 {
     document.getElementById("sideNav-content").style.display = "block";
