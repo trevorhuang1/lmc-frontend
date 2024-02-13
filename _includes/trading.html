@@ -70,10 +70,12 @@
   import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
   // Drop down items
   //this really helped: https://stackoverflow.com/questions/4772774/how-do-i-create-a-link-using-javascript
-  var friends = [];
+  var yourFriends = [];
   var users = [];
   var trade = [];
   const url = uri + '/api/users/';
+  const friendUrl = uri + '/api/users/friends';
+  var curr_uid = localStorage.getItem("uid");
 
   // This function creates the dropdown items with a for loop
   function createDropdownItems(items, contentId, buttonId) {
@@ -85,38 +87,68 @@
       dropdownContent.appendChild(text);
     }
   }
-  function fetchDb(){
-    fetch(url, options)
-        // response is a RESTful "promise" on any successful fetch
-        .then(response => {
-            // check for response errors and display
-            if (response.status !== 200) {
-                if (response.status === 401 || response.status == 403) {
-                    // Unauthorized - Redirect to 401 error page
-                    window.location.href = "/lmc-frontend/lmc-login";
-                }
-            }
-            // valid response will contain JSON data
-            response.json().then(data => {
-                console.log(data);
-                for (let i = 0; i < data.length; i++) {
-                    var user = data[i];
-                    users.push(user.uid);
-                    friends.push(user.friends);
-                }
-                //filling up the dropdown t ables
-                createDropdownItems(friends, 'friendsDropdownContent', 'friendsDropdownBtn');
-                createDropdownItems(users, 'usersDropdownContent', 'usersDropdownBtn');
-                createDropdownItems(trade, 'tradeDropdownContent', 'tradeDropdownBtn');
-            });
-        })
-        // catch fetch errors (ie ACCESS to server blocked)
-        .catch(err => {
-            console.error(err);
-        });
-    }
-  fetchDb()
+  fetch(url, options)
+      // response is a RESTful "promise" on any successful fetch
+      .then(response => {
+          // check for response errors and display
+          if (response.status !== 200) {
+              if (response.status === 401 || response.status == 403) {
+                  // Unauthorized - Redirect to 401 error page
+                  window.location.href = "/lmc-frontend/lmc-login";
+              }
+          }
+          // valid response will contain JSON data
+          response.json().then(data => {
+              console.log(data);
+              for (let i = 0; i < data.length; i++) {
+                  var user = data[i];
+                  users.push(user.uid);
+                  console.log("this the dude", user.uid)
+                  console.log("bro whos logged in", curr_uid)
+                  if (user.uid == curr_uid) {
+                    console.log()
+                    yourFriends.push(user.friends)
+                  }
+                  
+              }
+              //filling up the dropdown t ables
+              createDropdownItems(users, 'usersDropdownContent', 'usersDropdownBtn');
+              createDropdownItems(yourFriends, 'friendsDropdownContent', 'usersDropdownBtn');
+          });
+      })
+      // catch fetch errors (ie ACCESS to server blocked)
+      .catch(err => {
+          console.error(err);
+      });
 
-  console.log("friends ",friends)
+  // fetch(friendUrl, options)
+  //     // response is a RESTful "promise" on any successful fetch
+  //     .then(response => {
+  //         // check for response errors and display
+  //         if (response.status !== 200) {
+  //             if (response.status === 401 || response.status == 403) {
+  //                 // Unauthorized - Redirect to 401 error page
+  //                 window.location.href = "/lmc-frontend/lmc-login";
+  //             }
+  //         }
+  //         // valid response will contain JSON data
+  //         response.json().then(data => {
+  //             console.log("friends", data);
+  //             for (let i = 0; i < data.length; i++) {
+  //                 var user = data[i];
+  //                 yourFriends.push(user.friends);
+  //                 items.push(user.items)
+  //             }
+  //             //filling up the dropdown t ables
+  //             createDropdownItems(yourFriends, 'friendsDropdownContent', 'friendsDropdownBtn');
+  //             createDropdownItems(trade, 'tradeDropdownContent', 'tradeDropdownBtn');
+  //         });
+  //     })
+  //     // catch fetch errors (ie ACCESS to server blocked)
+  //     .catch(err => {
+  //         console.error(err);
+  //       });
+
+  console.log("friends ",yourFriends)
   console.log("users",users)
 </script>
