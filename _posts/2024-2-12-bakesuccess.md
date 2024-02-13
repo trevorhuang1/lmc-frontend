@@ -59,20 +59,5 @@ permalink: /bakesuccess
 <h1 id = "header"></h1>
 <img src="{{site.baseurl}}/images/oven.png" class="shaking-element" alt="Shaking Oven">
 <img id = "image" src = "" class="hidden fadeIn">
-    <script>
-        var header = document.getElementById("header");
-        header.textContent = "Congrats! You made a " + localStorage.getItem("bakedgood") + "!";
-        var name = "{{site.baseurl}}/images/" + localStorage.getItem("bakedgood") + ".png";
-        console.log(name);
-        var image = document.getElementById("image");
-        image.setAttribute("src", name);
-        console.log(image);
-        // After 6 seconds, remove the hidden class from the Danish image to make it visible
-        setTimeout(function() {
-            document.querySelector('.hidden').classList.remove('hidden');
-        }, 6000);
-        setTimeout(function() {
-            window.location.href = "{{site.baseurl}}/cook";
-        }, 9000);
-    </script>
+<script src="/lmc-frontend/LMC/JS/success.js"></script>
 
