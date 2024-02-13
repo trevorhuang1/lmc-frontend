@@ -103,17 +103,28 @@
               for (let i = 0; i < data.length; i++) {
                   var user = data[i];
                   users.push(user.uid);
-                  console.log("this the dude", user.uid)
-                  console.log("bro whos logged in", curr_uid)
                   if (user.uid == curr_uid) {
-                    console.log()
-                    yourFriends.push(user.friends)
+                    //changes from json to list
+                    var parsed = JSON.parse(user.friends)
+                    for (var j = 0; j < parsed.length; j++){
+                      yourFriends.push(parsed[j]);
+                    }
+                    var parsed2 = JSON.parse(user.items)
+                    for (var k = 0; k < parsed2.length; k++){
+                      trade.push(parsed2[k]);
+                    }
+
                   }
                   
               }
               //filling up the dropdown t ables
+              console.log("friends", yourFriends);
+              console.log("users", users);
+              console.log("items", trade);
+
               createDropdownItems(users, 'usersDropdownContent', 'usersDropdownBtn');
               createDropdownItems(yourFriends, 'friendsDropdownContent', 'usersDropdownBtn');
+              createDropdownItems(trade, 'tradeDropdownContent', 'tradeDropdownBtn');
           });
       })
       // catch fetch errors (ie ACCESS to server blocked)
