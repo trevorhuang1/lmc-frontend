@@ -1,7 +1,6 @@
 ---
 layout: base
-title: Database Get
-hide: true
+title: LMC Leaderboard 
 description: An advanced example of database CRUD (Create, Read, Update, Delete).  This articles is focussed on Read.  Each operation works asynchronously between JavaScript and a Python/Flask backend Database.  This requires a set of Python RESTful API services for Get, Put, Delete, and Update.
 permalink: /data/database
 ---
@@ -19,7 +18,7 @@ permalink: /data/database
 </head>
 <body>
 
-<h2>Leaderboard</h2>
+<h1>Let 'Em Cook Leaderboard</h1>
 
 <table>
   <thead>
@@ -35,11 +34,11 @@ permalink: /data/database
   </tbody>
 </table>
 <div>
-  <button onclick='window.location.href = "{{site.baseurl}}/lmc-editUser"'>Edit User</button>
+  <button class="edit-user" onclick='window.location.href = "{{site.baseurl}}/lmc-editUser"'>Edit User</button>
 </div>
 
 <div>
-  <button onclick='window.location.href = "{{site.baseurl}}/lmc-deleteUser"'>Delete User</button>
+  <button class="delete-user" onclick='window.location.href = "{{site.baseurl}}/lmc-deleteUser"'>Delete User</button>
 </div>
 
 
