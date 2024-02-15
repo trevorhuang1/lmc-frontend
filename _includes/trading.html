@@ -64,21 +64,45 @@
   </div>
   
   <div class="dropdown" id="tradeDropdown">
-    <button class="dropbtn" id="tradeDropdownBtn">Trade</button>
+    <button class="dropbtn" id="tradeDropdownBtn">Items</button>
     <div class="dropdown-content" id="tradeDropdownContent"></div>
-  </div>
-</body>
+  </div><br></br>
 
-<script type="module">
-  import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
+</body>
+<div class="container">
+  <form id="username" action="javascript:sendRecipe">
+      <p><label>
+          User ID:
+          <input class="userInput" type="text" name="uid" id="uid" required>
+      </label></p>
+      <p ><label>
+          Recipe:
+          <input class="userInput" type="item" name="item" id="item" required>
+      </label></p>
+      <p>
+          <button onclick="sendItem()">Send</button>
+      </p>
+  </form>
+</div>
+
+<script>
   // Drop down items
   //this really helped: https://stackoverflow.com/questions/4772774/how-do-i-create-a-link-using-javascript
   var yourFriends = [];
   var users = [];
   var trade = [];
-  const url = uri + '/api/users/';
-  const friendUrl = uri + '/api/users/friends';
+  const friendUrl = 'http://127.0.0.1:8028/api/users/friends';
   var curr_uid = localStorage.getItem("uid");
+  const url = "http://127.0.0.1:8028/api/users/";
+    const options = {
+        method: 'GET',
+        mode: 'cors',
+        cache: 'default',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    };
 
   // This function creates the dropdown items with a for loop
   function createDropdownItems(items, contentId, buttonId) {
@@ -90,6 +114,15 @@
       dropdownContent.appendChild(text);
     }
   }
+  function sendItem(){
+    console.log("this is a test")
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    const submitButton = document.querySelector('#username button');
+    if (submitButton) {
+        submitButton.addEventListener('click', sendItem());
+    }
+  });
   fetch(url, options)
       // response is a RESTful "promise" on any successful fetch
       .then(response => {
@@ -134,7 +167,6 @@
       .catch(err => {
           console.error(err);
       });
-
   // fetch(friendUrl, options)
   //     // response is a RESTful "promise" on any successful fetch
   //     .then(response => {
