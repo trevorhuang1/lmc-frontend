@@ -39,14 +39,28 @@ fetch(url, options)
     for (const row of data) {
         if (row.uid == localStorage.getItem('uid')) {
             currentItems = row.items;
-            currentPoints = row.points;
+            currentPoints = parseInt(row.points);
         }
     }
+    console.log(localStorage.getItem("bakedgood"));
+            let list = [];
+            try {
+                list = JSON.parse(currentItems);
+                if (!Array.isArray(list)) {
+                    throw new Error('Parsed data is not an array');
+                }
+            } catch (error) {
+                console.error('Error parsing currentItems:', error.message);
+            }
+            list.push(localStorage.getItem("bakedgood"));
+        currentItems = JSON.stringify(list)
+    var points = currentPoints + parseInt(localStorage.getItem("points"));
+    console.log(typeof points);
     console.log(currentItems); // Logging the retrieved items
     // Manipulate and update the items here
     const body = {
         uid: localStorage.getItem('uid'),
-        points: currentPoints + 5,
+        points:points,
         items: currentItems
     };
     const authoptions = {
