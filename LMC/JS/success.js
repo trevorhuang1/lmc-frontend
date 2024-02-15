@@ -39,14 +39,16 @@ fetch(url, options)
     for (const row of data) {
         if (row.uid == localStorage.getItem('uid')) {
             currentItems = row.items;
-            currentPoints = row.points;
+            currentPoints = parseInt(row.points);
         }
     }
+    var points = currentPoints + parseInt(localStorage.getItem("points"));
+    console.log(typeof points);
     console.log(currentItems); // Logging the retrieved items
     // Manipulate and update the items here
     const body = {
         uid: localStorage.getItem('uid'),
-        points: currentPoints + 5,
+        points:points,
         items: currentItems
     };
     const authoptions = {
