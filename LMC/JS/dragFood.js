@@ -1,11 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     // Your JavaScript code here
-    const ingredients = [
-        'sugar',
-        'flour',
-        'egg',
-        'glaze'
-    ];
+    const ingredients = JSON.parse(localStorage.getItem('ownedItems'));
     const card = document.getElementById("card");
     const dropZoneUL = document.getElementById("drop-zone-UL");
     const dropZoneUR = document.getElementById("drop-zone-UR");
