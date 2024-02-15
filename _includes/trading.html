@@ -70,17 +70,17 @@
 
 </body>
 <div class="container">
-  <form id="username" action="javascript:sendRecipe">
+  <form id="username" action="javascript:sendItem">
       <p><label>
-          User ID:
+          Friend ID:
           <input class="userInput" type="text" name="uid" id="uid" required>
       </label></p>
       <p ><label>
-          Recipe:
+          Item:
           <input class="userInput" type="item" name="item" id="item" required>
       </label></p>
       <p>
-          <button onclick="sendItem()">Send</button>
+          <button id="sendButton" onclick="sendItem()">Send</button>
       </p>
   </form>
 </div>
@@ -91,7 +91,8 @@
   var yourFriends = [];
   var users = [];
   var trade = [];
-  const friendUrl = 'http://127.0.0.1:8028/api/users/friends';
+  const sendButton = document.getElementById("sendButton")
+  const friendUrl = 'http://127.0.0.1:8028/api/users/send';
   var curr_uid = localStorage.getItem("uid");
   const url = "http://127.0.0.1:8028/api/users/";
     const options = {
@@ -115,14 +116,40 @@
     }
   }
   function sendItem(){
-    console.log("this is a test")
+    const body = {
+            uid: document.getElementById("uid").value,
+            items: document.getElementById("item").value,
+        };
+        const authOptions = {
+            ...options, // This will copy all properties from options
+            method: 'POST', // Override the method property
+            cache: 'no-cache', // Set the cache property
+            body: JSON.stringify(body)
+        };
+    fetch(friendUrl, authOptions)
+    .then(response => {
+        // handle error response from Web API
+        if (!response.ok) {
+            const errorMsg = 'Login error: ' + response.status;
+            console.log(errorMsg);
+            return;
+        }
+        // Success!!!
+        // reload the page
+        // window.location.reload();
+        alert("you just sent an item!");
+    })
+    // catch fetch errors (ie ACCESS to server blocked)
+    .catch(err => {
+        console.error(err);
+    });
   }
-  document.addEventListener('DOMContentLoaded', () => {
-    const submitButton = document.querySelector('#username button');
-    if (submitButton) {
-        submitButton.addEventListener('click', sendItem());
-    }
-  });
+  // document.addEventListener('DOMContentLoaded', () => {
+  //   const submitButton = document.querySelector('#username button');
+  //   if (submitButton) {
+  //       submitButton.addEventListener('click', sendItem());
+  //   }
+  // });
   fetch(url, options)
       // response is a RESTful "promise" on any successful fetch
       .then(response => {
@@ -167,6 +194,16 @@
       .catch(err => {
           console.error(err);
       });
+
+  sendButton.addEventListener("click", function() {
+    var receiver = document.getElementById("uid").value
+    var thing = document.getElementById("item").value
+    if (yourFriends.includes(receiver)) {
+        sendItem();
+    } else {
+        alert(`You have to be friends with ${receiver} before sending them an item!`);
+    }
+  });
   // fetch(friendUrl, options)
   //     // response is a RESTful "promise" on any successful fetch
   //     .then(response => {
