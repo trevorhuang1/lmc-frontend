@@ -42,6 +42,18 @@ fetch(url, options)
             currentPoints = parseInt(row.points);
         }
     }
+    console.log(localStorage.getItem("bakedgood"));
+            let list = [];
+            try {
+                list = JSON.parse(currentItems);
+                if (!Array.isArray(list)) {
+                    throw new Error('Parsed data is not an array');
+                }
+            } catch (error) {
+                console.error('Error parsing currentItems:', error.message);
+            }
+            list.push(localStorage.getItem("bakedgood"));
+        currentItems = JSON.stringify(list)
     var points = currentPoints + parseInt(localStorage.getItem("points"));
     console.log(typeof points);
     console.log(currentItems); // Logging the retrieved items
