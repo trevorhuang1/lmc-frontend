@@ -80,7 +80,7 @@
           <input class="userInput" type="item" name="item" id="item" required>
       </label></p>
       <p>
-          <button id="sendButton" onclick="sendItem()">Send</button>
+          <button id="sendButton">Send</button>
       </p>
   </form>
 </div>
@@ -91,7 +91,6 @@
   var yourFriends = [];
   var users = [];
   var trade = [];
-  const sendButton = document.getElementById("sendButton")
   const friendUrl = 'http://127.0.0.1:8028/api/users/send';
   var curr_uid = localStorage.getItem("uid");
   const url = "http://127.0.0.1:8028/api/users/";
@@ -195,6 +194,7 @@
           console.error(err);
       });
 
+  const sendButton = document.getElementById("sendButton")
   sendButton.addEventListener("click", function() {
     var receiver = document.getElementById("uid").value
     var thing = document.getElementById("item").value
