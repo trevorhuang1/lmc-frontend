@@ -1,8 +1,8 @@
 export var uri;
 if (location.hostname === "localhost") {
-        uri = "http://lmcflask.stu.nighthawkcodingsociety.com";
+        uri = "http://localhost:8028";
 } else if (location.hostname === "127.0.0.1") {
-        uri = "http://lmcflask.stu.nighthawkcodingsociety.com";
+        uri = "http://127.0.0.1:8028";
 } else {
         uri = "http://lmcflask.stu.nighthawkcodingsociety.com";
 }
