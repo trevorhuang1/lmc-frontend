@@ -26,6 +26,7 @@
   <li onclick="showTable('yourFriends')">Your Friends</li>
   <li onclick="showTable('users')">Users</li>
   <li onclick="showTable('trade')">Trade</li>
+  <li onclick="showTable('friendRequests')">Friend Requests</li>
 </ul>
 
 <div id="yourFriends" class="table-container active">
@@ -38,6 +39,10 @@
 
 <div id="trade" class="table-container">
   <!-- Table for trade list will be generated dynamically -->
+</div>
+
+<div id="friendRequests" class="table-container">
+  <!-- Table for friend request list will be generated dynamically -->
 </div>
 
 <div class="container">
@@ -57,22 +62,23 @@
 </div>
 
 <script>
-  var yourFriends = []; // Sample friends data
-  var users = []; // Sample users data
-  var trade = []; // Sample trade data
+  var yourFriends = [];
+  var friendRequests = [];
+  var users = [];
+  var trade = [];
   const friendUrl = 'http://127.0.0.1:8028/api/users/send';
-  const frUrl = 'http://127.0.0.1:8028/api/users/friendrq';
   var curr_uid = localStorage.getItem("uid");
   const url = "http://127.0.0.1:8028/api/users/";
-    const options = {
-        method: 'GET',
-        mode: 'cors',
-        cache: 'default',
-        credentials: 'include',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    };
+  const frUrl = 'http://127.0.0.1:8028/api/users/friendrq';
+  const options = {
+      method: 'GET',
+      mode: 'cors',
+      cache: 'default',
+      credentials: 'include',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+  };
 
   function generateTable(containerId, dataList) {
     var container = document.getElementById(containerId);
@@ -87,7 +93,34 @@
         var request = row.insertCell()
         var addFriend = document.createElement("button")
         addFriend.textContent = "Add friend";
-        request.append(addFriend);
+        addFriend.onclick = function() {
+          const user = localStorage.getItem("uid");
+          const body = {
+            sender: user,
+            receiver: dataList[i],
+          };
+          console.log(body)
+          const authOptions = {
+            ...options, // This will copy all properties from options
+            method: 'POST', // Override the method property
+            cache: 'no-cache', // Set the cache property
+            body: JSON.stringify(body)
+          };
+          fetch(frUrl, authOptions)
+          .then(response => {
+              // handle error response from Web API
+              if (!response.ok) {
+                  const errorMsg = response.status;
+                  console.log(errorMsg);
+                  return;
+              }
+          })
+          // catch fetch errors (ie ACCESS to server blocked)
+          .catch(err => {
+              console.error(err);
+          });
+          }
+          request.append(addFriend);
       }
     }
     container.appendChild(table);
@@ -154,17 +187,21 @@
                     for (var k = 0; k < parsed2.length; k++){
                       trade.push(parsed2[k]);
                     }
-
-                  }
-                  
+                    var parsed3 = JSON.parse(user.friendrq)
+                    for (var p = 0; p < parsed3.length; p++){
+                      friendRequests.push(parsed3[p]);
+                    }
+                  } 
               }
               //filling up the dropdown t ables
               generateTable('yourFriends', yourFriends);
               generateTable('users', users);
               generateTable('trade', trade);
+              generateTable('friendRequests', friendRequests);
               console.log("friends", yourFriends);
               console.log("users", users);
               console.log("items", trade);
+              console.log("frs", friendRequests)
           });
       })
       // catch fetch errors (ie ACCESS to server blocked)
@@ -172,7 +209,9 @@
           console.error(err);
       });
 
+  // I used chatgpt to help with the table switching
   function showTable(tableId) {
+    console.log(tableId);
     // Hide all table containers
     var tables = document.querySelectorAll('.table-container');
     tables.forEach(function(table) {
@@ -196,6 +235,7 @@
   });
   console.log("friends ",yourFriends)
   console.log("users",users)
+  console.log("frs",friendRequests)
 </script>
 
 </body>
