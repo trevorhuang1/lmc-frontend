@@ -60,13 +60,22 @@ Below JavaScript code is designed to handle user authentication in a web applica
 
 The script defines a function when the page loads. This function is triggered when the Login button in the HTML form above is pressed. 
  -->
-<script type="module">
+<script>
 
     // uri variable and options object are obtained from config.js
-    import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
-
+    const uri = "http://127.0.0.1:8028/";
+    const options = {
+        method: 'GET', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'default', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'include', // include, same-origin, omit
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    };
     function login_user(){
         // Set Authenticate endpoint
+        
         const url = uri + '/api/users/authenticate';
 
         // Set the body of the request to include login data from the DOM
@@ -82,7 +91,11 @@ The script defines a function when the page loads. This function is triggered wh
             ...options, // This will copy all properties from options
             method: 'POST', // Override the method property
             cache: 'no-cache', // Set the cache property
-            body: JSON.stringify(body)
+            body: JSON.stringify(body),
+            headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': 'include'
+    },
         };
 
         // Fetch JWT
