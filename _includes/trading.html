@@ -1,74 +1,50 @@
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    .dropbtn {
-      background-color: #a8329d;
-      color: black;
-      padding: 16px;
-      font-size: 16px;
-      border: none;
-    }
-    
-    .dropdown {
-      position: relative;
-      display: inline-block;
-    }
-    
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: #f1f1f1;
-      min-width: 160px;
-      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-      z-index: 1;
-    }
-    
-    .dropdown-content a {
-      color: black;
-      padding: 12px 16px;
-      text-decoration: none;
-      display: block;
-    }
-    
-    .dropdown-content a:hover {
-      background-color: #ddd;
-    }
-    
-    .dropdown:hover .dropdown-content {
-      display: block;
-    }
-    
-    .dropdown:hover .dropbtn {
-      background-color: #96238a;
-    }
-    
-    h2 {
-      color: white;
-    }
-    a {
-      color: black!important;
-    }
-  </style>
+
+<style>
+  /* Styling for the menu */
+  #menu {
+    list-style-type: none;
+    padding: 0;
+  }
+  #menu li {
+    display: inline;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  /* Styling for the tables */
+  .table-container {
+    display: none;
+  }
+  .table-container.active {
+    display: block;
+  }
+</style>
 </head>
+<body>
 
-<body style="background-color:white;">
-  <h2>Friends list</h2>
-  <div class="dropdown" id="friendsDropdown">
-    <button class="dropbtn" id="friendsDropdownBtn">Your friends</button>
-    <div class="dropdown-content" id="friendsDropdownContent"></div>
-  </div>
-  
-  <div class="dropdown" id="usersDropdown">
-    <button class="dropbtn" id="usersDropdownBtn">Users</button>
-    <div class="dropdown-content" id="usersDropdownContent"></div>
-  </div>
-  
-  <div class="dropdown" id="tradeDropdown">
-    <button class="dropbtn" id="tradeDropdownBtn">Items</button>
-    <div class="dropdown-content" id="tradeDropdownContent"></div>
-  </div><br></br>
+<ul id="menu">
+  <li onclick="showTable('yourFriends')">Your Friends</li>
+  <li onclick="showTable('users')">Users</li>
+  <li onclick="showTable('trade')">Trade</li>
+  <li onclick="showTable('friendRequests')">Friend Requests</li>
+</ul>
 
-</body>
+<div id="yourFriends" class="table-container active">
+  <!-- Table for yourFriends list will be generated dynamically -->
+</div>
+
+<div id="users" class="table-container">
+  <!-- Table for users list will be generated dynamically -->
+</div>
+
+<div id="trade" class="table-container">
+  <!-- Table for trade list will be generated dynamically -->
+</div>
+
+<div id="friendRequests" class="table-container">
+  <!-- Table for friend request list will be generated dynamically -->
+</div>
+
 <div class="container">
   <form id="username" action="javascript:sendItem">
       <p><label>
@@ -86,34 +62,105 @@
 </div>
 
 <script>
-  // Drop down items
-  //this really helped: https://stackoverflow.com/questions/4772774/how-do-i-create-a-link-using-javascript
   var yourFriends = [];
+  var friendRequests = [];
   var users = [];
   var trade = [];
-  const friendUrl = 'http://127.0.0.1:8028//api/users/send';
+  const friendUrl = 'http://127.0.0.1:8028/api/users/send';
   var curr_uid = localStorage.getItem("uid");
-  const url = "http://127.0.0.1:8028//api/users/";
-    const options = {
-        method: 'GET',
-        mode: 'cors',
-        cache: 'default',
-        credentials: 'include',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    };
+  const url = "http://127.0.0.1:8028/api/users/";
+  const frUrl = 'http://127.0.0.1:8028/api/users/friendrq';
+  const options = {
+      method: 'GET',
+      mode: 'cors',
+      cache: 'default',
+      credentials: 'include',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+  };
 
-  // This function creates the dropdown items with a for loop
-  function createDropdownItems(items, contentId, buttonId) {
-    var dropdownContent = document.getElementById(contentId);
-    dropdownContent.innerHTML = ''; // Clear previous items
-    for (let i = 0; i < items.length; i++) {
-      var text = document.createElement('a')
-      text.innerHTML = items[i];
-      dropdownContent.appendChild(text);
+  function generateTable(containerId, dataList) {
+    var container = document.getElementById(containerId);
+    container.innerHTML = ''; // Clear previous items
+    var table = document.createElement('table');
+    for (let i = 0; i < dataList.length; i++) {
+      var row = table.insertRow();
+      var cell = row.insertCell();
+      cell.appendChild(document.createTextNode(dataList[i]));
+
+      if (containerId == "users") {
+        var request = row.insertCell()
+        var addFriend = document.createElement("button")
+        addFriend.textContent = "Add friend";
+        addFriend.onclick = function() {
+          const user = localStorage.getItem("uid");
+          const body = {
+            sender: user,
+            receiver: dataList[i],
+          };
+          console.log(body)
+          const authOptions = {
+            ...options, // This will copy all properties from options
+            method: 'POST', // Override the method property
+            cache: 'no-cache', // Set the cache property
+            body: JSON.stringify(body)
+          };
+          fetch(frUrl, authOptions)
+          .then(response => {
+              // handle error response from Web API
+              if (!response.ok) {
+                  const errorMsg = response.status;
+                  console.log(errorMsg);
+                  return;
+              }
+          })
+          // catch fetch errors (ie ACCESS to server blocked)
+          .catch(err => {
+              console.error(err);
+          });
+          }
+          request.append(addFriend);
+      }
+
+      if (containerId == "friendRequests") {
+        var fr = row.insertCell()
+        var accept = document.createElement("button")
+        accept.textContent = "Accept Friend Request";
+        accept.onclick = function() {
+          const user = localStorage.getItem("uid");
+          const body = {
+            action: "accepted",
+            sender: dataList[i],
+            receiver: user,
+          };
+          console.log(body)
+          const authOptions = {
+            ...options, // This will copy all properties from options
+            method: 'DELETE', // Override the method property
+            cache: 'no-cache', // Set the cache property
+            body: JSON.stringify(body)
+          };
+          fetch(frUrl, authOptions)
+          .then(response => {
+              // handle error response from Web API
+              if (!response.ok) {
+                  const errorMsg = response.status;
+                  console.log(errorMsg);
+                  return;
+              }
+          })
+          // catch fetch errors (ie ACCESS to server blocked)
+          .catch(err => {
+              console.error(err);
+          });
+          }
+          fr.append(accept);
+      }
     }
+    container.appendChild(table);
   }
+
   function sendItem(){
     const body = {
             uid: document.getElementById("uid").value,
@@ -175,24 +222,41 @@
                     for (var k = 0; k < parsed2.length; k++){
                       trade.push(parsed2[k]);
                     }
-
-                  }
-                  
+                    var parsed3 = JSON.parse(user.friendrq)
+                    for (var p = 0; p < parsed3.length; p++){
+                      friendRequests.push(parsed3[p]);
+                    }
+                  } 
               }
               //filling up the dropdown t ables
+              generateTable('yourFriends', yourFriends);
+              generateTable('users', users);
+              generateTable('trade', trade);
+              generateTable('friendRequests', friendRequests);
               console.log("friends", yourFriends);
               console.log("users", users);
               console.log("items", trade);
-
-              createDropdownItems(users, 'usersDropdownContent', 'usersDropdownBtn');
-              createDropdownItems(yourFriends, 'friendsDropdownContent', 'usersDropdownBtn');
-              createDropdownItems(trade, 'tradeDropdownContent', 'tradeDropdownBtn');
+              console.log("frs", friendRequests)
           });
       })
       // catch fetch errors (ie ACCESS to server blocked)
       .catch(err => {
           console.error(err);
       });
+
+  // I used chatgpt to help with the table switching
+  function showTable(tableId) {
+    console.log(tableId);
+    // Hide all table containers
+    var tables = document.querySelectorAll('.table-container');
+    tables.forEach(function(table) {
+      table.classList.remove('active');
+    });
+    
+    // Show the selected table container
+    var selectedTable = document.getElementById(tableId);
+    selectedTable.classList.add('active');
+  }
 
   const sendButton = document.getElementById("sendButton")
   sendButton.addEventListener("click", function() {
@@ -204,34 +268,9 @@
         alert(`You have to be friends with ${receiver} before sending them an item!`);
     }
   });
-  // fetch(friendUrl, options)
-  //     // response is a RESTful "promise" on any successful fetch
-  //     .then(response => {
-  //         // check for response errors and display
-  //         if (response.status !== 200) {
-  //             if (response.status === 401 || response.status == 403) {
-  //                 // Unauthorized - Redirect to 401 error page
-  //                 window.location.href = "/lmc-frontend/lmc-login";
-  //             }
-  //         }
-  //         // valid response will contain JSON data
-  //         response.json().then(data => {
-  //             console.log("friends", data);
-  //             for (let i = 0; i < data.length; i++) {
-  //                 var user = data[i];
-  //                 yourFriends.push(user.friends);
-  //                 items.push(user.items)
-  //             }
-  //             //filling up the dropdown t ables
-  //             createDropdownItems(yourFriends, 'friendsDropdownContent', 'friendsDropdownBtn');
-  //             createDropdownItems(trade, 'tradeDropdownContent', 'tradeDropdownBtn');
-  //         });
-  //     })
-  //     // catch fetch errors (ie ACCESS to server blocked)
-  //     .catch(err => {
-  //         console.error(err);
-  //       });
-
   console.log("friends ",yourFriends)
   console.log("users",users)
+  console.log("frs",friendRequests)
 </script>
+
+</body>
