@@ -18,7 +18,7 @@ setTimeout(function() {
 }, 9000);
 //
 //
-const url = "http://127.0.0.1:8028/api/users/";
+const url = "https://lmcflask.stu.nighthawkcodingsociety.comapi/users/";
 const options = {
 method: 'GET',
 mode: 'cors',

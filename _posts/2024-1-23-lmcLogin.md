@@ -63,7 +63,7 @@ The script defines a function when the page loads. This function is triggered wh
 <script>
 
     // uri variable and options object are obtained from config.js
-    const uri = "http://127.0.0.1:8028/";
+    const uri = "https://lmcflask.stu.nighthawkcodingsociety.com";
     const options = {
         method: 'GET', // *GET, POST, PUT, DELETE, etc.
         mode: 'cors', // no-cors, *cors, same-origin
