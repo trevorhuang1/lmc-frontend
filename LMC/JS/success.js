@@ -18,7 +18,7 @@ setTimeout(function() {
 }, 9000);
 //
 //
-const url = "https://lmcflask.stu.nighthawkcodingsociety.comapi/users/";
+const url = "https://lmc.stu.nighthawkcodingsociety.comapi/users/";
 const options = {
 method: 'GET',
 mode: 'cors',
